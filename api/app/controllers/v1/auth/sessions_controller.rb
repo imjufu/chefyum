@@ -1,5 +1,5 @@
 class V1::Auth::SessionsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :authenticate_user!, only: [ :create ]
 
   def create
     user = User.find_by(email: params.fetch(:email))
@@ -8,7 +8,7 @@ class V1::Auth::SessionsController < ApplicationController
       token = user.generate_token_for(:access_token)
       render json: success_response(user: user, access_token: token)
     else
-      render json: error_response([user.unauthenticated_message]), status: :unauthorized
+      render json: error_response([ user.unauthenticated_message ]), status: :unauthorized
     end
   end
 

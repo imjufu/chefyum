@@ -10,7 +10,7 @@ module Authenticatable
     has_secure_password
 
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-    normalizes :email, with: -> email { email.strip.downcase }
+    normalizes :email, with: ->(email) { email.strip.downcase }
 
     generates_token_for :access_token, expires_in: 1.day
 

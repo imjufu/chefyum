@@ -3,6 +3,6 @@ class UserMailer < ApplicationMailer
     @user = params[:user]
     @token = params[:password_reset_token]
     @redirect_url = params[:redirect_url]
-    mail(to: @user.email, subject: 'Password reset instructions')
+    mail(to: @user.email, subject: "Password reset instructions")
   end
 end
