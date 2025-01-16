@@ -2,6 +2,8 @@ module Lockable
   extend ActiveSupport::Concern
 
   included do
+    attr_accessor :unlocked_redirect_url
+
     generates_token_for :unlock_token, expires_in: 1.hour do
       locked_at
     end
@@ -9,6 +11,7 @@ module Lockable
     def lock_access!
       self.locked_at = Time.now.utc
       save(validate: false)
+      notify_locked
     end
 
     def unlock_access!
@@ -34,6 +37,10 @@ module Lockable
 
     def access_locked?
       !!locked_at && !lock_expired?
+    end
+
+    def notify_locked
+      ActiveSupport::Notifications.instrument "user.locked", { id: id, redirect_url: unlocked_redirect_url }
     end
 
     protected
