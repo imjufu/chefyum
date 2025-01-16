@@ -8,7 +8,7 @@ module Confirmable
     attr_accessor :confirmation_redirect_url
 
     before_save :postpone_email_change_until_confirmation, if: :postpone_email_changed?
-    after_save :notify_reconfirmation, if: :confirmation_required?
+    after_update :notify_reconfirmation, if: :confirmation_required?
 
     generates_token_for :confirmation_token, expires_in: 1.hour do
       unconfirmed_email

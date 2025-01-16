@@ -1,3 +1,3 @@
-<h1>Welcome <%= @user.name %>!</h1>
-<p>You can confirm your account through the link below:</p>
-<p><%= link_to 'Confirm my account', v1_auth_confirmation_url(token: @token, redirect_url: @redirect_url) %></p>
+<h1>Hello <%= @user.name %>!</h1>
+<p>You can confirm your email through the link below:</p>
+<p><%= link_to 'Confirm my email', v1_auth_confirmation_url(token: @token, redirect_url: @redirect_url) %></p>

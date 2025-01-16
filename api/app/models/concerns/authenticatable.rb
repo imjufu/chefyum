@@ -6,6 +6,7 @@ module Authenticatable
     include Recoverable
     include Lockable
     include Trackable
+    include Registrable
 
     has_secure_password
 

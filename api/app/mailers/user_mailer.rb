@@ -19,4 +19,11 @@ class UserMailer < ApplicationMailer
     @redirect_url = params[:redirect_url]
     mail(to: @user.unconfirmed_email, subject: "Confirmation instructions")
   end
+
+  def welcome_email
+    @user = params[:user]
+    @token = params[:confirmation_token]
+    @redirect_url = params[:redirect_url]
+    mail(to: @user.email, subject: "Welcome")
+  end
 end
