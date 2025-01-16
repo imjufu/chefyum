@@ -6,7 +6,7 @@ class V1::Auth::PasswordsController < ApplicationController
     token = user.generate_token_for(:reset_password_token)
     redirect_url = params.fetch(:redirect_url)
 
-    return render(json: error_response([ "Redirect to '#{redirect_url}' is not allowed." ]), status: :unprocessable_entity) if blacklisted_redirect_url?(redirect_url)
+    return render(json: error_response([ :redirect_url_not_allowed ]), status: :unprocessable_entity) if blacklisted_redirect_url?(redirect_url)
 
     UserMailer.with(user: user, reset_password_token: token, redirect_url: redirect_url).reset_password_instructions_email.deliver_later
   end
