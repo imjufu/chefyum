@@ -12,4 +12,11 @@ class UserMailer < ApplicationMailer
     @redirect_url = params[:redirect_url]
     mail(to: @user.email, subject: "Unlock instructions")
   end
+
+  def confirmation_instructions_email
+    @user = params[:user]
+    @token = params[:confirmation_token]
+    @redirect_url = params[:redirect_url]
+    mail(to: @user.email, subject: "Confirmation instructions")
+  end
 end

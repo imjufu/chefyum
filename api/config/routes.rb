@@ -11,6 +11,9 @@ Rails.application.routes.draw do
       post "auth/unlock/request" => "auth/unlocks#unlock_request"
       get "auth/unlock" => "auth/unlocks#unlock"
 
+      post "auth/confirmation/request" => "auth/confirmations#confirmation_request"
+      get "auth/confirmation" => "auth/confirmations#confirmation"
+
       get "me" => "me#index"
       patch "me" => "me#update"
     end
