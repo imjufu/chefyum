@@ -17,6 +17,6 @@ class UserMailer < ApplicationMailer
     @user = params[:user]
     @token = params[:confirmation_token]
     @redirect_url = params[:redirect_url]
-    mail(to: @user.email, subject: "Confirmation instructions")
+    mail(to: @user.unconfirmed_email, subject: "Confirmation instructions")
   end
 end
