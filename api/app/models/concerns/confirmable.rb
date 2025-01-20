@@ -15,7 +15,9 @@ module Confirmable
     end
 
     def confirm!
-      if pending_reconfirmation? && !confirmation_period_expired?
+      if pending_reconfirmation?
+        fail AuthConfirmation::PeriodExpiredError if confirmation_period_expired?
+
         @bypass_confirmation_postpone = true
 
         self.confirmed_at = Time.now.utc
@@ -32,16 +34,8 @@ module Confirmable
       false
     end
 
-    def pending_reconfirmation?
-      unconfirmed_email.present?
-    end
-
     def confirmed?
       !!confirmed_at
-    end
-
-    def confirmation_period_expired?
-      self.confirmation_sent_at && (Time.now.utc > self.confirmation_sent_at.utc + self.class.confirm_within)
     end
 
     def notify_reconfirmation
@@ -50,6 +44,14 @@ module Confirmable
     end
 
     protected
+
+    def pending_reconfirmation?
+      unconfirmed_email.present?
+    end
+
+    def confirmation_period_expired?
+      self.confirmation_sent_at && (Time.now.utc > self.confirmation_sent_at.utc + self.class.confirm_within)
+    end
 
     def postpone_email_change_until_confirmation
       @confirmation_required = true
@@ -69,4 +71,8 @@ module Confirmable
   class_methods do
     mattr_accessor :confirm_within, default: 3.days
   end
+end
+
+module AuthConfirmation
+  class PeriodExpiredError < StandardError; end
 end

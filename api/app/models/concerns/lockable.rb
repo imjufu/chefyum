@@ -43,10 +43,8 @@ module Lockable
       ActiveSupport::Notifications.instrument "user.locked", { id: id, redirect_url: unlocked_redirect_url }
     end
 
-    protected
-
     def lock_expired?
-      locked_at && locked_at < self.class.unlock_in.ago
+      locked_at? && locked_at < self.class.unlock_in.ago
     end
 
     def attempts_exceeded?

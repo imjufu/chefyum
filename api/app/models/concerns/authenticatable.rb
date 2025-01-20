@@ -14,37 +14,40 @@ module Authenticatable
     normalizes :email, with: ->(email) { email.strip.downcase }
 
     generates_token_for :access_token, expires_in: 1.day
+  end
 
-    def authenticate(password, remote_ip)
+  class_methods do
+    def authenticate!(email, password, remote_ip)
+      user = User.find_by(email: email)
+
+      fail Auth::InvalidError unless user
+
       # Unlock the user if the lock is expired, no matter
       # if the user can login or not (wrong password, etc)
-      unlock_access! if lock_expired?
+      user.unlock_access! if user.lock_expired?
 
-      return false unless confirmed?
+      fail Auth::UnconfirmedError unless user.confirmed?
+      fail Auth::LockedError if user.access_locked?
 
-      if super(password) && !access_locked?
-        reset_lock_access_fields
-        track_auth(remote_ip)
-        save(validate: false)
+      if user.authenticate(password)
+        user.reset_lock_access_fields
+        user.track_auth(remote_ip)
+        user.save(validate: false)
 
-        return self
+        return user
       end
 
-      increment_failed_attempts!
+      user.increment_failed_attempts!
 
-      false
-    end
-
-    def unauthenticated_message
-      if !confirmed?
-        :unconfirmed
-      elsif access_locked?
-        :locked
-      elsif last_attempt?
-        :last_attempt
-      else
-        :invalid
-      end
+      fail Auth::LastAttemptError if user.last_attempt?
+      fail Auth::InvalidError
     end
   end
+end
+
+module Auth
+  class UnconfirmedError < StandardError; end
+  class LockedError < StandardError; end
+  class InvalidError < StandardError; end
+  class LastAttemptError < StandardError; end
 end
