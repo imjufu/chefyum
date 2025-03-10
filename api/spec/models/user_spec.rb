@@ -2,32 +2,30 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject(:unconfirmed_user) do
-    described_class.create({ name: Faker::Name.name, email: unconfirmed_email, password: password })
+    described_class.create(FactoryBot.attributes_for(:user, password: password))
   end
 
   subject(:user) do
-    user = described_class.create({ name: Faker::Name.name, email: email, password: password })
+    user = described_class.create(FactoryBot.attributes_for(:user, password: password))
     user.confirm!
     user
   end
 
-  let(:unconfirmed_email) { Faker::Internet.email }
-  let(:email) { Faker::Internet.email }
-  let(:new_email) { 'michael.scoot@dunder-mifflin.com' }
-  let(:password) { 'mysecretpassword' }
+  let(:new_email) { Faker::Internet.email }
+  let(:password) { Faker::Internet.password(min_length: 12) }
   let(:ip) { IPAddr.new(Faker::Internet.ip_v4_address) }
   let(:redirect_url) { 'http://localhost:7777' }
 
-  describe '#authenticate' do
+  describe '#authenticate!' do
     before { user }
 
     it 'returns itself' do
-      expect(User.authenticate!(email, password, ip)).to eq(user)
+      expect(User.authenticate!(user.email, password, ip)).to eq(user)
     end
 
     it 'tracks the sign in ip' do
       expect do
-        User.authenticate!(email, password, ip)
+        User.authenticate!(user.email, password, ip)
         user.reload
       end.to change { user.current_sign_in_ip }.from(nil).to(ip)
     end
@@ -36,14 +34,14 @@ RSpec.describe User, type: :model do
       sign_in_ip = IPAddr.new(Faker::Internet.ip_v4_address)
       user.update!(current_sign_in_ip: sign_in_ip)
       expect do
-        User.authenticate!(email, password, ip)
+        User.authenticate!(user.email, password, ip)
         user.reload
       end.to change { user.last_sign_in_ip }.from(nil).to(sign_in_ip)
     end
 
     it 'increments the sign in count' do
       expect do
-        User.authenticate!(email, password, ip)
+        User.authenticate!(user.email, password, ip)
         user.reload
       end.to change { user.sign_in_count }.from(0).to(1)
     end
@@ -66,12 +64,12 @@ RSpec.describe User, type: :model do
       let(:wrong_password) { 'wrongpassword' }
 
       it 'throws an Auth::InvalidError error' do
-        expect { User.authenticate!(email, wrong_password, ip) }.to raise_error(Auth::InvalidError)
+        expect { User.authenticate!(user.email, wrong_password, ip) }.to raise_error(Auth::InvalidError)
       end
 
       it 'increments the number of failed attempts' do
         expect do
-          begin User.authenticate!(email, wrong_password, ip); rescue; end
+          begin User.authenticate!(user.email, wrong_password, ip); rescue; end
           user.reload
         end.to change { user.failed_attempts }.from(0).to(1)
       end
@@ -80,7 +78,7 @@ RSpec.describe User, type: :model do
         before { user.update!(failed_attempts: User.maximum_attempts - 2) }
 
         it 'throws an Auth::LastAttemptError error' do
-          expect { User.authenticate!(email, wrong_password, ip) }.to raise_error(Auth::LastAttemptError)
+          expect { User.authenticate!(user.email, wrong_password, ip) }.to raise_error(Auth::LastAttemptError)
         end
       end
 
@@ -89,7 +87,7 @@ RSpec.describe User, type: :model do
 
         it 'locks the user' do
           expect do
-            begin User.authenticate!(email, wrong_password, ip); rescue; end
+            begin User.authenticate!(user.email, wrong_password, ip); rescue; end
             user.reload
           end.to change { user.access_locked? }.from(false).to(true)
         end
@@ -99,7 +97,7 @@ RSpec.describe User, type: :model do
         before { user.lock_access! }
 
         it 'throws an Auth::Locked error' do
-          expect { User.authenticate!(email, wrong_password, ip) }.to raise_error(Auth::LockedError)
+          expect { User.authenticate!(user.email, wrong_password, ip) }.to raise_error(Auth::LockedError)
         end
       end
     end

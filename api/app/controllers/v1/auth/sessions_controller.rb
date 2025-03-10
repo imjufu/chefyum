@@ -2,14 +2,14 @@ class V1::Auth::SessionsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :create ]
 
   def create
-    user = User.find_by(email: params.fetch(:email))
-
-    if user&.authenticate(params.fetch(:password), request.remote_ip)
+    begin
+      user = User.authenticate!(params.fetch(:email), params.fetch(:password), request.remote_ip)
       token = user.generate_token_for(:access_token)
-      render json: success_response(user: user, access_token: token)
-    else
-      render json: error_response([ user.unauthenticated_message ]), status: :unauthorized
+    rescue StandardError => error
+      return render json: error_response([ error.message ]), status: :bad_request
     end
+
+    render json: success_response(user: user, access_token: token), status: :created
   end
 
   def destroy

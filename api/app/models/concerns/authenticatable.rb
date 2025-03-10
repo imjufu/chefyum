@@ -46,8 +46,24 @@ module Authenticatable
 end
 
 module Auth
-  class UnconfirmedError < StandardError; end
-  class LockedError < StandardError; end
-  class InvalidError < StandardError; end
-  class LastAttemptError < StandardError; end
+  class UnconfirmedError < StandardError
+    def initialize(msg = :unconfirmed)
+      super
+    end
+  end
+  class LockedError < StandardError
+    def initialize(msg = :locked)
+      super
+    end
+  end
+  class InvalidError < StandardError
+    def initialize(msg = :invalid)
+      super
+    end
+  end
+  class LastAttemptError < StandardError
+    def initialize(msg = :last_attempt)
+      super
+    end
+  end
 end

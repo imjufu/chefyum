@@ -6,9 +6,9 @@ class V1::SignUpController < ApplicationController
     user.confirmation_redirect_url = params.fetch(:redirect_url)
 
     if user.save
-      render json: success_response(user)
+      render json: success_response(user), status: :created
     else
-      render json: error_response(user.errors.full_messages), status: :unprocessable_entity
+      render json: error_response(user.errors.full_messages), status: :bad_request
     end
   end
 

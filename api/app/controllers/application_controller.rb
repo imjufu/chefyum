@@ -2,6 +2,10 @@ class ApplicationController < ActionController::API
   include JsonResponseConcern
   before_action :authenticate_user!
 
+  rescue_from ActionController::ParameterMissing do |exception|
+    render json: error_response([ exception.message ]), status: :bad_request
+  end
+
   def authenticate_user!
     bearer_token = request.headers["Authorization"]
     access_token = bearer_token&.split&.last # Removes the 'Bearer' from the string
