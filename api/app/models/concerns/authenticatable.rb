@@ -56,22 +56,22 @@ end
 
 module Auth
   class UnconfirmedError < StandardError
-    def initialize(msg = :unconfirmed)
+    def initialize(msg = :auth_unconfirmed)
       super
     end
   end
   class LockedError < StandardError
-    def initialize(msg = :locked)
+    def initialize(msg = :auth_locked)
       super
     end
   end
   class InvalidError < StandardError
-    def initialize(msg = :invalid)
+    def initialize(msg = :auth_invalid)
       super
     end
   end
   class LastAttemptError < StandardError
-    def initialize(msg = :last_attempt)
+    def initialize(msg = :auth_last_attempt)
       super
     end
   end
