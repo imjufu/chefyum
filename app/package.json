@@ -6,9 +6,11 @@
     "dev": "next dev --turbopack -p 8080",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --dir app --file middleware.ts --fix"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.6.0",
+    "negotiator": "^1.0.0",
     "next": "15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -17,6 +19,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

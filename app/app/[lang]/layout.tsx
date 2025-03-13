@@ -16,13 +16,15 @@ export const metadata: Metadata = {
   title: "Chef Yum",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ lang: string }>;
 }>) {
   return (
-    <html lang="fr">
+    <html lang={(await params).lang}>
       <body
         className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
       >

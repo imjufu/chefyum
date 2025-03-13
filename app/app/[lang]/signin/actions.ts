@@ -2,6 +2,7 @@
 
 import { SigninFormSchema, FormState } from "./definitions";
 import { setSession } from "@/app/lib/session";
+import { apiClient } from "@/app/lib/api";
 
 export async function signin(
   state: FormState,
@@ -20,20 +21,14 @@ export async function signin(
     };
   }
 
-  const res = await fetch("http://localhost:3000/api/v1/auth", {
-    method: "POST",
-    body: JSON.stringify(validatedFields.data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
+  const res = await apiClient.post(validatedFields.data);
   const json = await res.json();
+
   if (json.success) {
     await setSession(
       json.data.access_token,
       json.data.user,
-      new Date("2025-07-01"),
+      new Date(json.data.expires_at),
     );
   } else {
     return {
