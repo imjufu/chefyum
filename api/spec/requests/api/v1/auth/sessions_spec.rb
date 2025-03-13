@@ -17,6 +17,7 @@ RSpec.describe "Api::V1::Me::Auth::Sessions", type: :request do
         'success' => true,
         'data' => {
           'access_token' => an_instance_of(String),
+          'expires_at' => an_instance_of(String),
           'user' => user.as_json
         }
       })
@@ -32,7 +33,7 @@ RSpec.describe "Api::V1::Me::Auth::Sessions", type: :request do
       end
 
       it 'returns the error in the body' do
-        expect(json).to eq({ 'data' => { 'errors' => [ 'invalid' ] }, 'success' => false })
+        expect(json).to eq({ 'data' => { 'errors' => [ 'auth_invalid' ] }, 'success' => false })
       end
     end
   end

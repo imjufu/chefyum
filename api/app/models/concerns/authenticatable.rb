@@ -8,12 +8,21 @@ module Authenticatable
     include Trackable
     include Registrable
 
+    ACCESS_TOKEN_EXPIRES_IN = 1.day
+
     has_secure_password
 
     validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
     normalizes :email, with: ->(email) { email.strip.downcase }
 
-    generates_token_for :access_token, expires_in: 1.day
+    generates_token_for :access_token, expires_in: ACCESS_TOKEN_EXPIRES_IN
+
+    def generate_access_token
+      expires_at = ACCESS_TOKEN_EXPIRES_IN.from_now
+      token = generate_token_for(:access_token)
+
+      [ token, expires_at ]
+    end
   end
 
   class_methods do

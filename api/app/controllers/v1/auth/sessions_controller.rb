@@ -4,12 +4,16 @@ class V1::Auth::SessionsController < ApplicationController
   def create
     begin
       user = User.authenticate!(params.fetch(:email), params.fetch(:password), request.remote_ip)
-      token = user.generate_token_for(:access_token)
+      token, expires_at = user.generate_access_token
     rescue StandardError => error
       return render json: error_response([ error.message ]), status: :bad_request
     end
 
-    render json: success_response(user: user, access_token: token), status: :created
+    render json: success_response(
+      user: user,
+      access_token: token,
+      expires_at: expires_at
+    ), status: :created
   end
 
   def destroy
