@@ -1,3 +1,5 @@
+import "server-only";
+
 class Client {
   getUrl(endpoint: string) {
     const baseUrl = process.env.API_BASE_URL;

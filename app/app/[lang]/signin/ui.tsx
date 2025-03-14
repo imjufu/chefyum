@@ -2,11 +2,21 @@
 
 import { Dictionary } from "../dictionaries";
 import { signin } from "./actions";
-import { useActionState } from "react";
+import { useActionState, useContext, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
+import { AuthContext } from "@/app/lib/providers";
+import { redirect } from "next/navigation";
 
 export function SigninForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signin, undefined);
+
+  const { currentSession, setCurrentSession } = useContext(AuthContext);
+  if (currentSession?.isAuth) redirect("/");
+
+  useEffect(() => {
+    if (state?.user)
+      setCurrentSession({ isAuth: true, user: state.user, token: state.token });
+  }, [state, setCurrentSession]);
 
   return (
     <div>

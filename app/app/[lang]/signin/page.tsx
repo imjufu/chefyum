@@ -1,15 +1,10 @@
-import { redirectIfAlreadyConnected } from "@/app/lib/dal";
+"use client";
+
 import { SigninForm } from "./ui";
-import { getDictionary, Locales } from "../dictionaries";
+import { useContext } from "react";
+import { IntContext } from "@/app/lib/providers";
 
-export default async function Signin({
-  params,
-}: {
-  params: Promise<{ lang: Locales }>;
-}) {
-  const { lang } = await params;
-  const dict = await getDictionary(lang);
-  await redirectIfAlreadyConnected("/");
-
-  return <SigninForm dict={dict}></SigninForm>;
+export default function Signin() {
+  const { dictionary } = useContext(IntContext);
+  return <SigninForm dict={dictionary}></SigninForm>;
 }

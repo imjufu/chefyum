@@ -6,4 +6,5 @@ export type User = {
 export type Session = {
   isAuth: boolean;
   user?: User;
+  token?: string;
 };

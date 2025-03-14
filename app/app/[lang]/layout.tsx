@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "./components/navbar";
+import { AppContextProvider } from "@/app/lib/providers";
+import { getDictionary, Locales } from "@/app/[lang]/dictionaries";
+import { verifySession } from "../lib/dal";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -21,14 +25,27 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
+  params: Promise<{ lang: Locales }>;
 }>) {
+  const session = await verifySession();
+  const lang = (await params).lang;
+  const dictionary = await getDictionary(lang);
+
   return (
-    <html lang={(await params).lang}>
+    <html lang={lang} className="h-full bg-gray-100">
       <body
-        className={`${robotoSans.variable} ${robotoMono.variable} antialiased`}
+        className={`h-full ${robotoSans.variable} ${robotoMono.variable} antialiased`}
       >
-        {children}
+        <div className="min-h-full">
+          <AppContextProvider session={session} dictionary={dictionary}>
+            <Navbar />
+            <main>
+              <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                {children}
+              </div>
+            </main>
+          </AppContextProvider>
+        </div>
       </body>
     </html>
   );

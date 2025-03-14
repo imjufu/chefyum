@@ -6,5 +6,12 @@
     "email_invalid": "Email invalide",
     "password_required": "Mot de passe obligatoire",
     "auth_invalid": "Email ou mot de passe incorrect"
+  },
+  "navbar": {
+    "homepage": "Accueil",
+    "pricing": "Tarifs",
+    "about": "À propos",
+    "profile": "Mon compte",
+    "signout": "Se déconnecter"
   }
 }

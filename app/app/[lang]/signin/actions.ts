@@ -5,7 +5,7 @@ import { setSession } from "@/app/lib/session";
 import { apiClient } from "@/app/lib/api";
 
 export async function signin(
-  state: FormState,
+  previousState: FormState,
   formData: FormData,
 ): Promise<FormState> {
   // Validate form fields
@@ -25,11 +25,13 @@ export async function signin(
   const json = await res.json();
 
   if (json.success) {
+    // Create stateless session
     await setSession(
       json.data.access_token,
       json.data.user,
       new Date(json.data.expires_at),
     );
+    return { token: json.data.access_token, user: json.data.user };
   } else {
     return {
       errors: {

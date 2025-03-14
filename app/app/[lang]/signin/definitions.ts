@@ -1,3 +1,4 @@
+import { User } from "@/app/lib/definitions";
 import { z } from "zod";
 
 export const SigninFormSchema = z.object({
@@ -13,5 +14,7 @@ export type FormState =
         common?: string[];
       };
       message?: string;
+      token?: string;
+      user?: User;
     }
   | undefined;
