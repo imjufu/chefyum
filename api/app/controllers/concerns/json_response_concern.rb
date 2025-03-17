@@ -6,6 +6,12 @@ module JsonResponseConcern
       common_response(body)
     end
 
+    def model_error_response(model)
+      error_response(model.errors.map do |error|
+        "#{error.attribute}_#{error.type}"
+      end)
+    end
+
     def error_response(body)
       common_response({ errors: body }, success: false)
     end

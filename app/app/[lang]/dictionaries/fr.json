@@ -1,14 +1,29 @@
 {
-  "signin": {
+  "common": {
     "email": "Email",
-    "password": "Mot de passe",
-    "submit": "Se connecter",
     "email_invalid": "Email invalide",
+    "password": "Mot de passe",
     "password_required": "Mot de passe obligatoire",
+    "name": "Nom complet",
+    "name_required": "Nom complet obligatoire"
+  },
+  "signin": {
+    "title": "Connectez-vous à votre compte",
+    "submit": "Se connecter",
     "auth_invalid": "Email ou mot de passe incorrect",
     "forgot_password": "Mot de passe oublié ?",
-    "title": "Connectez-vous à votre compte",
-    "signup": "Créer votre compte"
+    "signup": "Créer votre compte",
+    "confirmed_title": "Bienvenue !",
+    "confirmed_description": "Votre compte a été validé.",
+    "confirmed_action": "Me connecter à mon compte"
+  },
+  "signup": {
+    "title": "Créer votre compte",
+    "submit": "S'inscrire",
+    "already_signup": "Déjà inscrit ?",
+    "signin": "Se connecter",
+    "success": "<h3>Votre compte a été créé !</h3> Vous allez recevoir un email de confirmation.",
+    "email_taken": "Ce compte existe déjà"
   },
   "navbar": {
     "homepage": "Accueil",

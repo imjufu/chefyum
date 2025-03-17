@@ -8,7 +8,7 @@ class V1::SignUpController < ApplicationController
     if user.save
       render json: success_response(user), status: :created
     else
-      render json: error_response(user.errors.full_messages), status: :bad_request
+      render json: model_error_response(user), status: :bad_request
     end
   end
 

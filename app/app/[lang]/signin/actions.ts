@@ -21,7 +21,7 @@ export async function signin(
     };
   }
 
-  const res = await apiClient.post(validatedFields.data);
+  const res = await apiClient.post("/auth", validatedFields.data);
   const json = await res.json();
 
   if (json.success) {

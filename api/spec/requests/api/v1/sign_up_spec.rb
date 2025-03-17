@@ -46,7 +46,7 @@ RSpec.describe "Api::V1::SignUp", type: :request do
 
       it "returns errors" do
         action
-        expect(json.fetch('data').fetch('errors').first).to eq 'Email has already been taken'
+        expect(json.fetch('data').fetch('errors').first).to eq 'email_taken'
       end
     end
   end

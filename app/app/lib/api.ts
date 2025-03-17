@@ -7,8 +7,8 @@ class Client {
     return `${baseUrl}/api/v1/${endpoint}`;
   }
 
-  async post(jsonBody: { [key: string]: string }) {
-    return await fetch(this.getUrl("/auth"), {
+  async post(endpoint: string, jsonBody: object) {
+    return await fetch(this.getUrl(endpoint), {
       method: "POST",
       body: JSON.stringify(jsonBody),
       headers: {

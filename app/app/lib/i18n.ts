@@ -3,7 +3,7 @@ export function t(dict: { [key: string]: string }, key: string | string[]) {
     const translated = dict[key];
     if (!translated) {
       console.error(
-        `${key} is not translated in dictionary: ${JSON.stringify(dict)}`,
+        `"${key}" is not translated in dictionary: ${JSON.stringify(dict)}`,
       );
       return key;
     }

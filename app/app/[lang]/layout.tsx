@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-// import { Roboto, Roboto_Mono } from "next/font/google";
 import "./globals.scss";
 import Navbar from "./components/navbar";
 import { AppContextProvider } from "@/app/lib/providers";
 import { getDictionary, Locales } from "@/app/[lang]/dictionaries";
 import { verifySession } from "../lib/dal";
-
-// const robotoSans = Roboto({
-//   variable: "--font-roboto-sans",
-//   subsets: ["latin"],
-// });
-
-// const robotoMono = Roboto_Mono({
-//   variable: "--font-roboto-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
   title: "Chef Yum",
