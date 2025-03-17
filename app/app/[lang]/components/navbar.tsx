@@ -113,7 +113,7 @@ export default function Navbar() {
   } else {
     profilePartContent = (
       <Link href="/signin" className="text-gray-300">
-        Sign in
+        {t(dictionary.navbar, "signin")}
         <ArrowLongRightIcon aria-hidden="true" className="ml-2 inline size-6" />
       </Link>
     );
