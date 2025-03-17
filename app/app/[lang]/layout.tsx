@@ -1,20 +1,20 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Mono } from "next/font/google";
-import "./globals.css";
+// import { Roboto, Roboto_Mono } from "next/font/google";
+import "./globals.scss";
 import Navbar from "./components/navbar";
 import { AppContextProvider } from "@/app/lib/providers";
 import { getDictionary, Locales } from "@/app/[lang]/dictionaries";
 import { verifySession } from "../lib/dal";
 
-const robotoSans = Roboto({
-  variable: "--font-roboto-sans",
-  subsets: ["latin"],
-});
+// const robotoSans = Roboto({
+//   variable: "--font-roboto-sans",
+//   subsets: ["latin"],
+// });
 
-const robotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
-  subsets: ["latin"],
-});
+// const robotoMono = Roboto_Mono({
+//   variable: "--font-roboto-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Chef Yum",
@@ -32,10 +32,8 @@ export default async function RootLayout({
   const dictionary = await getDictionary(lang);
 
   return (
-    <html lang={lang} className="h-full bg-gray-100">
-      <body
-        className={`h-full ${robotoSans.variable} ${robotoMono.variable} antialiased`}
-      >
+    <html lang={lang} className="h-full">
+      <body className="h-full antialiased">
         <div className="min-h-full">
           <AppContextProvider session={session} dictionary={dictionary}>
             <Navbar />

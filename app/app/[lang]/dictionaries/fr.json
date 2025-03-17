@@ -5,7 +5,10 @@
     "submit": "Se connecter",
     "email_invalid": "Email invalide",
     "password_required": "Mot de passe obligatoire",
-    "auth_invalid": "Email ou mot de passe incorrect"
+    "auth_invalid": "Email ou mot de passe incorrect",
+    "forgot_password": "Mot de passe oublié ?",
+    "title": "Connectez-vous à votre compte",
+    "signup": "Créer votre compte"
   },
   "navbar": {
     "homepage": "Accueil",
