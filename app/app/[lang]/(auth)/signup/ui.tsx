@@ -1,6 +1,6 @@
 "use client";
 
-import { Dictionary } from "../dictionaries";
+import { Dictionary } from "@/app/[lang]/dictionaries";
 import { signup } from "./actions";
 import { useState, useActionState, useEffect } from "react";
 import { t } from "@/app/lib/i18n";

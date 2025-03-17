@@ -11,13 +11,6 @@ import {
   DialogTitle,
 } from "@headlessui/react";
 
-// export default function Modal({
-//   title,
-//   description,
-//   open,
-//   children: actions,
-// }: PropsWithChildren<{ title: string; description: string; open: boolean }>) {
-
 export default forwardRef(function Modal(
   {
     title,

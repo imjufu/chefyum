@@ -25,6 +25,12 @@
     "success": "<h3>Votre compte a été créé !</h3> Vous allez recevoir un email de confirmation.",
     "email_taken": "Ce compte existe déjà"
   },
+  "forgot_password": {
+    "title": "Mot de passe oublié ?",
+    "submit": "Envoyez moi les instructions de réinitialisation",
+    "not_found": "Ce compte n'existe pas",
+    "success": "Vous allez recevoir un email contenant les instructions de réinitialisation."
+  },
   "navbar": {
     "homepage": "Accueil",
     "pricing": "Tarifs",

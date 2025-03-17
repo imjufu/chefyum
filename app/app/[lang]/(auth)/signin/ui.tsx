@@ -1,6 +1,6 @@
 "use client";
 
-import { Dictionary } from "../dictionaries";
+import { Dictionary } from "@/app/[lang]/dictionaries";
 import { signin } from "./actions";
 import { useActionState, useContext, useEffect, useRef } from "react";
 import { t } from "@/app/lib/i18n";
@@ -8,7 +8,7 @@ import { AuthContext } from "@/app/lib/providers";
 import { Field, Label, Input } from "@headlessui/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import Modal from "../components/modal";
+import Modal from "@/app/[lang]/components/modal";
 import { redirect } from "next/navigation";
 
 export function SigninForm({ dict }: { dict: Dictionary }) {

@@ -1,15 +1,14 @@
 "use client";
 
-import { SignupForm } from "./ui";
+import { SigninForm } from "./ui";
 import { useContext } from "react";
-import { IntContext } from "@/app/lib/providers";
-import { AuthContext } from "@/app/lib/providers";
+import { AuthContext, IntContext } from "@/app/lib/providers";
 import { redirect } from "next/navigation";
 
-export default function Signup() {
+export default function Signin() {
   const { currentSession } = useContext(AuthContext);
   if (currentSession?.isAuth) redirect("/");
 
   const { dictionary } = useContext(IntContext);
-  return <SignupForm dict={dictionary}></SignupForm>;
+  return <SigninForm dict={dictionary}></SigninForm>;
 }
