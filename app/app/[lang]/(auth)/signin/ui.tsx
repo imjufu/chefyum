@@ -57,7 +57,7 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
             <div className="flex items-center justify-between">
               <Label htmlFor="password">{t(dict.common, "password")}</Label>
               <div className="text-sm">
-                <Link href="/forgot-password">
+                <Link href="/password/forgot">
                   {t(dict.signin, "forgot_password")}
                 </Link>
               </div>

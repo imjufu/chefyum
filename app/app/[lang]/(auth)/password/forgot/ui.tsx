@@ -12,7 +12,7 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
 
   const [redirectUrl, setRedirectUrl] = useState<string>("");
   useEffect(() => {
-    setRedirectUrl(`${window.location.origin}/forgot-password/change`);
+    setRedirectUrl(`${window.location.origin}/password/change`);
   }, []);
 
   return (
