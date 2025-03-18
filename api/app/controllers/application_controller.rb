@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
     render json: error_response([ exception.message ]), status: :bad_request
   end
 
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    render json: error_response([ "not_found" ]), status: :not_found
+  end
+
   def authenticate_user!
     bearer_token = request.headers["Authorization"]
     access_token = bearer_token&.split&.last # Removes the 'Bearer' from the string

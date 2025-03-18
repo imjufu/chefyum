@@ -7,6 +7,8 @@ class V1::Auth::PasswordsController < ApplicationController
     redirect_url = params.fetch(:redirect_url)
 
     UserMailer.with(user: user, reset_password_token: token, redirect_url: redirect_url).reset_password_instructions_email.deliver_later
+
+    render json: success_response({}), status: :created
   end
 
   def edit
