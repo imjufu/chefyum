@@ -5,7 +5,7 @@
 }
 
 @utility alert {
-  @apply rounded-md p-4;
+  @apply rounded-md flex justify-between items-center;
   a, h3 {
     @apply font-medium;
   }

@@ -5,6 +5,7 @@ import { forgotPassword } from "./actions";
 import { useActionState, useState, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
 import { Field, Label, Input } from "@headlessui/react";
+import Alert from "@/app/[lang]/components/alert";
 
 export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(forgotPassword, undefined);
@@ -23,9 +24,9 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
           </h2>
         </div>
         {state?.success && (
-          <div className="alert-success my-5">
+          <Alert type="success" className="my-5">
             {t(dict.forgot_password, "success")}
-          </div>
+          </Alert>
         )}
         <form action={action}>
           <Input
@@ -49,9 +50,9 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
             )}
           </Field>
           {state?.errors?.common && (
-            <div className="alert-error">
+            <Alert type="error">
               {t(dict.forgot_password, state.errors.common)}
-            </div>
+            </Alert>
           )}
           <div>
             <button disabled={pending} type="submit" tabIndex={3}>

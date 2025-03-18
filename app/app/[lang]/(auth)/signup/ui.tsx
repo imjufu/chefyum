@@ -6,6 +6,7 @@ import { useState, useActionState, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
 import { Field, Label, Input } from "@headlessui/react";
 import Link from "next/link";
+import Alert from "@/app/[lang]/components/alert";
 
 export function SignupForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signup, undefined);
@@ -33,7 +34,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
         parts.push(<p key={idx}>t(dict.signup, error)</p>);
       }
     }
-    commonErrorPart = <div className="alert-error">{parts}</div>;
+    commonErrorPart = parts;
   }
 
   return (
@@ -48,10 +49,11 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
         </p>
       </div>
       {state?.success && (
-        <div
-          className="alert-success my-5"
-          dangerouslySetInnerHTML={{ __html: t(dict.signup, "success") }}
-        ></div>
+        <Alert type="success" className="my-5">
+          <div
+            dangerouslySetInnerHTML={{ __html: t(dict.signup, "success") }}
+          ></div>
+        </Alert>
       )}
       <form action={action}>
         <Input
@@ -103,7 +105,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
             <p className="error">{t(dict.common, state.errors.password)}</p>
           )}
         </Field>
-        {commonErrorPart}
+        {commonErrorPart && <Alert type="error">{commonErrorPart}</Alert>}
         <div>
           <button disabled={pending} type="submit" tabIndex={4}>
             {t(dict.signup, "submit")}

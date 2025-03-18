@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import Modal from "@/app/[lang]/components/modal";
 import { redirect } from "next/navigation";
+import Alert from "@/app/[lang]/components/alert";
 
 export function SigninForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signin, undefined);
@@ -73,9 +74,7 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
             )}
           </Field>
           {state?.errors?.common && (
-            <div className="alert-error">
-              {t(dict.signin, state.errors.common)}
-            </div>
+            <Alert type="error">{t(dict.signin, state.errors.common)}</Alert>
           )}
           <div>
             <button disabled={pending} type="submit" tabIndex={3}>
