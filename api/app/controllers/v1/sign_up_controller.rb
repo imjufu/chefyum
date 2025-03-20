@@ -3,7 +3,7 @@ class V1::SignUpController < ApplicationController
 
   def create
     user = User.new(user_params)
-    user.confirmation_redirect_url = params.fetch(:redirect_url)
+    user.confirmation_redirect_url = params.require(:redirect_url)
 
     if user.save
       render json: success_response(user), status: :created
