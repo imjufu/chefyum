@@ -24,7 +24,7 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
           </h2>
         </div>
         {state?.success && (
-          <Alert type="success" className="my-5">
+          <Alert level="success" className="my-5">
             {t(dict.forgot_password, "success")}
           </Alert>
         )}
@@ -50,7 +50,7 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
             )}
           </Field>
           {state?.errors?.common && (
-            <Alert type="error">
+            <Alert level="error">
               {t(dict.forgot_password, state.errors.common)}
             </Alert>
           )}

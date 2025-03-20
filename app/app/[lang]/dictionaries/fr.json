@@ -15,7 +15,8 @@
     "signup": "Créer votre compte",
     "confirmed_title": "Bienvenue !",
     "confirmed_description": "Votre compte a été validé.",
-    "confirmed_action": "Me connecter à mon compte"
+    "confirmed_action": "Me connecter à mon compte",
+    "success": "Vous êtes connecté !"
   },
   "signup": {
     "title": "Créer votre compte",
@@ -30,6 +31,17 @@
     "submit": "Envoyez moi les instructions de réinitialisation",
     "not_found": "Ce compte n'existe pas",
     "success": "Vous allez recevoir un email contenant les instructions de réinitialisation."
+  },
+  "change_password": {
+    "title": "Changer mon mot de passe",
+    "password": "Nouveau mot de passe",
+    "password_required": "Nouveau mot de passe obligatoire",
+    "password_confirmation": "Confirmer le mot de passe",
+    "password_confirmation_required": "Mot de passe obligatoire",
+    "password_confirmation_invalid": "Les mots de passe ne sont pas identiques",
+    "submit": "Changer mon mot de passe",
+    "invalid_signature": "Le lien de changement de mot de passe a expiré",
+    "success": "Votre mot de passe a été changé avec succès !"
   },
   "navbar": {
     "homepage": "Accueil",

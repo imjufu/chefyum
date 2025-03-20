@@ -3,7 +3,8 @@ import "./globals.scss";
 import Navbar from "./components/navbar";
 import { AppContextProvider } from "@/app/lib/providers";
 import { getDictionary, Locales } from "@/app/[lang]/dictionaries";
-import { verifySession } from "../lib/dal";
+import { verifySession } from "@/app/lib/dal";
+import FlashMessage from "@/app/[lang]/components/flashMessage";
 
 export const metadata: Metadata = {
   title: "Chef Yum",
@@ -19,18 +20,24 @@ export default async function RootLayout({
   const session = await verifySession();
   const lang = (await params).lang;
   const dictionary = await getDictionary(lang);
+  const flashMessage = null;
 
   return (
     <html lang={lang} className="h-full">
       <body className="h-full antialiased">
         <div className="min-h-full">
-          <AppContextProvider session={session} dictionary={dictionary}>
+          <AppContextProvider
+            session={session}
+            dictionary={dictionary}
+            flashMessage={flashMessage}
+          >
             <Navbar />
             <main>
               <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                 {children}
               </div>
             </main>
+            <FlashMessage />
           </AppContextProvider>
         </div>
       </body>

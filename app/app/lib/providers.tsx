@@ -7,7 +7,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { Session } from "./definitions";
+import { AlertLevel, Session } from "./definitions";
 import { Dictionary } from "../[lang]/dictionaries";
 
 export const AuthContext = createContext<{
@@ -26,13 +26,28 @@ export const IntContext = createContext<{
   setDictionary: () => {},
 });
 
+export type FlashMessage = { message: string; level: AlertLevel };
+export const FlashMessageContext = createContext<{
+  flashMessage: FlashMessage | null;
+  setFlashMessage: Dispatch<SetStateAction<FlashMessage | null>>;
+}>({
+  flashMessage: null,
+  setFlashMessage: () => null,
+});
+
 export function AppContextProvider({
   session: initialSession,
   dictionary: initialDictionary,
+  flashMessage: initialFlashMessage,
   children,
-}: PropsWithChildren<{ session: Session; dictionary: Dictionary }>) {
+}: PropsWithChildren<{
+  session: Session;
+  dictionary: Dictionary;
+  flashMessage: FlashMessage;
+}>) {
   const [dictionary, setDictionary] = useState(initialDictionary);
   const [currentSession, setCurrentSession] = useState(initialSession);
+  const [flashMessage, setFlashMessage] = useState(initialFlashMessage);
 
   return (
     <IntContext.Provider
@@ -47,7 +62,14 @@ export function AppContextProvider({
           setCurrentSession,
         }}
       >
-        {children}
+        <FlashMessageContext.Provider
+          value={{
+            flashMessage,
+            setFlashMessage,
+          }}
+        >
+          {children}
+        </FlashMessageContext.Provider>
       </AuthContext.Provider>
     </IntContext.Provider>
   );

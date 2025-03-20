@@ -49,7 +49,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
         </p>
       </div>
       {state?.success && (
-        <Alert type="success" className="my-5">
+        <Alert level="success" className="my-5">
           <div
             dangerouslySetInnerHTML={{ __html: t(dict.signup, "success") }}
           ></div>
@@ -105,7 +105,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
             <p className="error">{t(dict.common, state.errors.password)}</p>
           )}
         </Field>
-        {commonErrorPart && <Alert type="error">{commonErrorPart}</Alert>}
+        {commonErrorPart && <Alert level="error">{commonErrorPart}</Alert>}
         <div>
           <button disabled={pending} type="submit" tabIndex={4}>
             {t(dict.signup, "submit")}

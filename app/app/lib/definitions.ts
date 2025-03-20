@@ -8,3 +8,5 @@ export type Session = {
   user?: User;
   token?: string;
 };
+
+export type AlertLevel = "success" | "error";

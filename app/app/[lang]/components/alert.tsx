@@ -6,20 +6,21 @@ import {
   ExclamationTriangleIcon,
   CheckCircleIcon,
 } from "@heroicons/react/24/outline";
+import { AlertLevel } from "@/app/lib/definitions";
 
 export default function Alert({
-  type,
+  level,
   className,
   children,
-}: PropsWithChildren<{ className?: string; type: "success" | "error" }>) {
+}: PropsWithChildren<{ className?: string; level: AlertLevel }>) {
   const [isOpen, setIsOpen] = useState(true);
 
   const classNames = [className];
   let icon = null;
-  if (type == "success") {
+  if (level == "success") {
     classNames.push("alert-success");
     icon = <CheckCircleIcon aria-hidden="true" className="block size-6" />;
-  } else if (type == "error") {
+  } else if (level == "error") {
     classNames.push("alert-error");
     icon = (
       <ExclamationTriangleIcon aria-hidden="true" className="block size-6" />

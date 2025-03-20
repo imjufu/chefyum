@@ -4,7 +4,7 @@ import { Dictionary } from "@/app/[lang]/dictionaries";
 import { signin } from "./actions";
 import { useActionState, useContext, useEffect, useRef } from "react";
 import { t } from "@/app/lib/i18n";
-import { AuthContext } from "@/app/lib/providers";
+import { AuthContext, FlashMessageContext } from "@/app/lib/providers";
 import { Field, Label, Input } from "@headlessui/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -19,10 +19,16 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
   const confirmed = searchParams.get("confirmed");
 
   const { setCurrentSession } = useContext(AuthContext);
+  const { setFlashMessage } = useContext(FlashMessageContext);
   useEffect(() => {
-    if (state?.user)
+    if (state?.user) {
+      setFlashMessage({
+        message: t(dict.signin, "success") as string,
+        level: "success",
+      });
       setCurrentSession({ isAuth: true, user: state.user, token: state.token });
-  }, [state, setCurrentSession]);
+    }
+  }, [dict, state, setCurrentSession, setFlashMessage]);
 
   const modalRef = useRef(null);
 
@@ -74,7 +80,7 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
             )}
           </Field>
           {state?.errors?.common && (
-            <Alert type="error">{t(dict.signin, state.errors.common)}</Alert>
+            <Alert level="error">{t(dict.signin, state.errors.common)}</Alert>
           )}
           <div>
             <button disabled={pending} type="submit" tabIndex={3}>
