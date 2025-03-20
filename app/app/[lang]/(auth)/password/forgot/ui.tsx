@@ -6,6 +6,7 @@ import { useActionState, useState, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
 import { Field, Label, Input } from "@headlessui/react";
 import Alert from "@/app/[lang]/components/alert";
+import Link from "next/link";
 
 export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(forgotPassword, undefined);
@@ -60,6 +61,9 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
             </button>
           </div>
         </form>
+        <div className="mt-4 text-sm flex flex-col items-center">
+          <Link href="/signin">{t(dict.signup, "signin")}</Link>
+        </div>
       </div>
     </>
   );

@@ -33,7 +33,7 @@
   },
   "forgot_password": {
     "title": "Mot de passe oublié ?",
-    "submit": "Envoyez moi les instructions de réinitialisation",
+    "submit": "Envoyez-moi les instructions de réinitialisation",
     "not_found": "Ce compte n'existe pas",
     "success": "Vous allez recevoir un email contenant les instructions de réinitialisation."
   },

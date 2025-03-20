@@ -99,8 +99,11 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
             </button>
           </div>
         </form>
+        <div className="mt-4 text-sm flex flex-col items-center">
+          <Link href="/">Email de validation non reçu ?</Link>
+          <Link href="/">Email de déverrouillage non reçu ?</Link>
+        </div>
       </div>
-      (
       <Modal
         ref={modalRef}
         open={!!msg}

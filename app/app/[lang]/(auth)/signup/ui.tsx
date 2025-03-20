@@ -112,6 +112,9 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
           </button>
         </div>
       </form>
+      <div className="mt-4 text-sm flex flex-col items-center">
+        <Link href="/signin">{t(dict.signup, "signin")}</Link>
+      </div>
     </div>
   );
 }
