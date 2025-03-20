@@ -13,7 +13,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
 
   const [redirectUrl, setRedirectUrl] = useState<string>("");
   useEffect(() => {
-    setRedirectUrl(`${window.location.origin}/signin?confirmed=true`);
+    setRedirectUrl(`${window.location.origin}/signin?msg=confirmed`);
   }, []);
 
   let commonErrorPart = null;

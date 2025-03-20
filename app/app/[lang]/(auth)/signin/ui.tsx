@@ -2,7 +2,7 @@
 
 import { Dictionary } from "@/app/[lang]/dictionaries";
 import { signin } from "./actions";
-import { useActionState, useContext, useEffect, useRef } from "react";
+import { useActionState, useContext, useEffect, useRef, useState } from "react";
 import { t } from "@/app/lib/i18n";
 import { AuthContext, FlashMessageContext } from "@/app/lib/providers";
 import { Field, Label, Input } from "@headlessui/react";
@@ -15,8 +15,13 @@ import Alert from "@/app/[lang]/components/alert";
 export function SigninForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signin, undefined);
 
+  const [unlockedRedirectUrl, setUnlockedRedirectUrl] = useState<string>("");
+  useEffect(() => {
+    setUnlockedRedirectUrl(`${window.location.origin}/signin?msg=unlocked`);
+  }, []);
+
   const searchParams = useSearchParams();
-  const confirmed = searchParams.get("confirmed");
+  const msg = searchParams.get("msg");
 
   const { setCurrentSession } = useContext(AuthContext);
   const { setFlashMessage } = useContext(FlashMessageContext);
@@ -45,6 +50,12 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
           </p>
         </div>
         <form action={action}>
+          <Input
+            name="unlocked_redirect_url"
+            value={unlockedRedirectUrl}
+            readOnly={true}
+            type="hidden"
+          />
           <Field>
             <Label htmlFor="email">{t(dict.common, "email")}</Label>
             <Input
@@ -89,11 +100,14 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
           </div>
         </form>
       </div>
+      (
       <Modal
         ref={modalRef}
-        open={!!confirmed}
-        title={t(dict.signin, "confirmed_title") as string}
-        description={t(dict.signin, "confirmed_description") as string}
+        open={!!msg}
+        title={msg ? (t(dict.signin, `${msg}_title`) as string) : ""}
+        description={
+          msg ? (t(dict.signin, `${msg}_description`) as string) : ""
+        }
       >
         <button
           type="button"
@@ -103,7 +117,7 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
             redirect("/signin");
           }}
         >
-          {t(dict.signin, "confirmed_action")}
+          {msg ? t(dict.signin, `${msg}_action`) : ""}
         </button>
       </Modal>
     </>

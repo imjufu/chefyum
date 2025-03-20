@@ -21,7 +21,10 @@ export async function signin(
     };
   }
 
-  const res = await apiClient.post("/auth", validatedFields.data);
+  const res = await apiClient.post("/auth", {
+    ...validatedFields.data,
+    unlocked_redirect_url: formData.get("unlocked_redirect_url"),
+  });
   const json = await res.json();
 
   if (json.success) {

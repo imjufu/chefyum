@@ -11,11 +11,16 @@
     "title": "Connectez-vous à votre compte",
     "submit": "Se connecter",
     "auth_invalid": "Email ou mot de passe incorrect",
+    "auth_last_attempt": "Votre compte sera bloqué au prochain échec",
+    "auth_locked": "Votre compte est bloqué. Vous allez recevoir un email de déblocage.",
     "forgot_password": "Mot de passe oublié ?",
     "signup": "Créer votre compte",
     "confirmed_title": "Bienvenue !",
     "confirmed_description": "Votre compte a été validé.",
     "confirmed_action": "Me connecter à mon compte",
+    "unlocked_title": "Déblocage",
+    "unlocked_description": "Votre compte a été débloqué.",
+    "unlocked_action": "Me connecter à mon compte",
     "success": "Vous êtes connecté !"
   },
   "signup": {
