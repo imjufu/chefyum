@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
     render json: error_response([ "not_found" ]), status: :not_found
   end
 
+  rescue_from ActiveSupport::MessageVerifier::InvalidSignature do |exception|
+    render json: error_response([ "invalid_signature" ]), status: :unauthorized
+  end
+
   def authenticate_user!
     bearer_token = request.headers["Authorization"]
     access_token = bearer_token&.split&.last # Removes the 'Bearer' from the string
