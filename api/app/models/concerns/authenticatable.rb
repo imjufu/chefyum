@@ -26,7 +26,7 @@ module Authenticatable
   end
 
   class_methods do
-    def authenticate!(email, password, remote_ip)
+    def authenticate!(email, password, remote_ip, unlocked_redirect_url)
       user = User.find_by(email: email)
 
       fail Auth::InvalidError unless user
@@ -46,8 +46,10 @@ module Authenticatable
         return user
       end
 
+      user.unlocked_redirect_url = unlocked_redirect_url
       user.increment_failed_attempts!
 
+      fail Auth::LockedError if user.access_locked?
       fail Auth::LastAttemptError if user.last_attempt?
       fail Auth::InvalidError
     end

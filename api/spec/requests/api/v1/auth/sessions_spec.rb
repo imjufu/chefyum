@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe "Api::V1::Me::Auth::Sessions", type: :request do
   let(:password) { Faker::Internet.password(min_length: 12) }
   let(:user) { FactoryBot.create(:user, :confirmed, password: password) }
-  let(:params) { { email: user.email, password: password } }
+  let(:unlocked_redirect_url) { 'http://localhost:7777' }
+  let(:params) { { email: user.email, password: password, unlocked_redirect_url: unlocked_redirect_url } }
 
   describe "POST /api/v1/auth" do
     it 'responds with status code 201' do
@@ -25,7 +26,7 @@ RSpec.describe "Api::V1::Me::Auth::Sessions", type: :request do
 
     context 'when the password is wrong' do
       before do
-        post '/api/v1/auth', params: { email: user.email, password: 'itsthewrongpassword' }
+        post '/api/v1/auth', params: { email: user.email, password: 'itsthewrongpassword', unlocked_redirect_url: unlocked_redirect_url }
       end
 
       it 'responds with status code 400' do
