@@ -1,11 +1,13 @@
 export function t(dict: { [key: string]: string }, key: string | string[]) {
   const translate = (key: string) => {
-    const translated = dict[key];
-    if (!translated) {
+    let translated = null;
+    if (!(key in dict)) {
       console.error(
         `"${key}" is not translated in dictionary: ${JSON.stringify(dict)}`,
       );
-      return key;
+      translated = key;
+    } else {
+      translated = dict[key];
     }
     return [translated];
   };

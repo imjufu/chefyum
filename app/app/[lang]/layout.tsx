@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.scss";
-import Navbar from "./components/navbar";
+import Navbar from "@/app/components/navbar";
 import { AppContextProvider } from "@/app/lib/providers";
-import { getDictionary, Locales } from "@/app/[lang]/dictionaries";
+import { getDictionary, Locales } from "@/app/lib/dictionaries";
 import { verifySession } from "@/app/lib/dal";
-import FlashMessage from "@/app/[lang]/components/flashMessage";
+import FlashMessage from "@/app/components/flashMessage";
 
 export const metadata: Metadata = {
   title: "Chef Yum",

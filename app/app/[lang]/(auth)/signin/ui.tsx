@@ -1,6 +1,6 @@
 "use client";
 
-import { Dictionary } from "@/app/[lang]/dictionaries";
+import { Dictionary } from "@/app/lib/dictionaries";
 import { signin } from "./actions";
 import { useActionState, useContext, useEffect, useState } from "react";
 import { t } from "@/app/lib/i18n";
@@ -8,7 +8,7 @@ import { AuthContext, FlashMessageContext } from "@/app/lib/providers";
 import { Field, Label, Input } from "@headlessui/react";
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
-import Alert from "@/app/[lang]/components/alert";
+import Alert from "@/app/components/alert";
 
 export function SigninForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signin, undefined);

@@ -1,11 +1,11 @@
 "use client";
 
-import { Dictionary } from "@/app/[lang]/dictionaries";
+import { Dictionary } from "@/app/lib/dictionaries";
 import { changePassword } from "./actions";
 import { useActionState, useContext, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
 import { Field, Label, Input } from "@headlessui/react";
-import Alert from "@/app/[lang]/components/alert";
+import Alert from "@/app/components/alert";
 import { redirect, useSearchParams } from "next/navigation";
 import { FlashMessageContext } from "@/app/lib/providers";
 

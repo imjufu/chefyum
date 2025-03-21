@@ -6,7 +6,7 @@ import { authRequest } from "./actions";
 import { useActionState, useState, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
 import { Field, Label, Input } from "@headlessui/react";
-import Alert from "@/app/[lang]/components/alert";
+import Alert from "@/app/components/alert";
 import Link from "next/link";
 
 export function AuthRequestForm({ requestType }: { requestType: string }) {
@@ -18,6 +18,8 @@ export function AuthRequestForm({ requestType }: { requestType: string }) {
   useEffect(() => {
     setBaseRedirectUrl(window.location.origin);
   }, []);
+
+  console.log("REQUEST", requestType);
 
   return (
     <>

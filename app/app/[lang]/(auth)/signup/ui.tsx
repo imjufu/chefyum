@@ -1,12 +1,12 @@
 "use client";
 
-import { Dictionary } from "@/app/[lang]/dictionaries";
+import { Dictionary } from "@/app/lib/dictionaries";
 import { signup } from "./actions";
 import { useState, useActionState, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
 import { Field, Label, Input } from "@headlessui/react";
 import Link from "next/link";
-import Alert from "@/app/[lang]/components/alert";
+import Alert from "@/app/components/alert";
 
 export function SignupForm({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signup, undefined);
