@@ -2,9 +2,19 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { verifySession } from "@/app/lib/dal";
 
 const locales = ["fr"];
 const defaultLocale = "fr-FR";
+const publicRoutes = [
+  "",
+  "/signin",
+  "/signup",
+  "/reset-password",
+  "/change-password",
+  "/confirmation",
+  "/unlock",
+];
 
 // Get the preferred locale, similar to the above or using a library
 async function getLocale(request: NextRequest) {
@@ -33,11 +43,25 @@ async function newUrlWithLocale(request: NextRequest) {
   return null;
 }
 
+async function hasToBeAuthenticated(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const locale = await getLocale(request);
+  const pathnameWithoutLocale = pathname.replace(`/${locale}`, "");
+  const isPublicRoute = publicRoutes.includes(pathnameWithoutLocale);
+  const { isAuth } = await verifySession();
+
+  return !isPublicRoute && !isAuth;
+}
+
 export async function middleware(request: NextRequest) {
   // Redirect if there is no locale in the pathname
   const urlWithLocale = await newUrlWithLocale(request);
   if (urlWithLocale) {
     return NextResponse.redirect(urlWithLocale);
+  }
+
+  if (await hasToBeAuthenticated(request)) {
+    return NextResponse.redirect(new URL("/signin", request.nextUrl));
   }
 
   return NextResponse.next();
