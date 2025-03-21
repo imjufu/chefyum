@@ -2,14 +2,12 @@
 
 import { Dictionary } from "@/app/[lang]/dictionaries";
 import { signin } from "./actions";
-import { useActionState, useContext, useEffect, useRef, useState } from "react";
+import { useActionState, useContext, useEffect, useState } from "react";
 import { t } from "@/app/lib/i18n";
 import { AuthContext, FlashMessageContext } from "@/app/lib/providers";
 import { Field, Label, Input } from "@headlessui/react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import Modal from "@/app/[lang]/components/modal";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import Alert from "@/app/[lang]/components/alert";
 
 export function SigninForm({ dict }: { dict: Dictionary }) {
@@ -33,9 +31,15 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
       });
       setCurrentSession({ isAuth: true, user: state.user, token: state.token });
     }
-  }, [dict, state, setCurrentSession, setFlashMessage]);
 
-  const modalRef = useRef(null);
+    if (msg) {
+      setFlashMessage({
+        message: t(dict.signin, msg) as string,
+        level: "success",
+      });
+      return redirect("/signin");
+    }
+  }, [dict, state, setCurrentSession, setFlashMessage, msg]);
 
   return (
     <>
@@ -104,25 +108,6 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
           <Link href="/unlock">{t(dict.unlock, "title")}</Link>
         </div>
       </div>
-      <Modal
-        ref={modalRef}
-        open={!!msg}
-        title={msg ? (t(dict.signin, `${msg}_title`) as string) : ""}
-        description={
-          msg ? (t(dict.signin, `${msg}_description`) as string) : ""
-        }
-      >
-        <button
-          type="button"
-          className="btn"
-          onClick={() => {
-            modalRef.current.closeModal();
-            redirect("/signin");
-          }}
-        >
-          {msg ? t(dict.signin, `${msg}_action`) : ""}
-        </button>
-      </Modal>
     </>
   );
 }

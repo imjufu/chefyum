@@ -16,13 +16,9 @@
     "auth_unconfirmed": "Votre compte n'est pas validé",
     "forgot_password": "Mot de passe oublié ?",
     "signup": "Créer votre compte",
-    "confirmed_title": "Bienvenue !",
-    "confirmed_description": "Votre compte a été validé.",
-    "confirmed_action": "Me connecter à mon compte",
-    "unlocked_title": "Déblocage",
-    "unlocked_description": "Votre compte a été débloqué.",
-    "unlocked_action": "Me connecter à mon compte",
-    "success": "Vous êtes connecté !"
+    "success": "Vous êtes connecté !",
+    "confirmed": "Votre compte a été validé.",
+    "unlocked": "Votre compte a été débloqué."
   },
   "signup": {
     "title": "Créer votre compte",
