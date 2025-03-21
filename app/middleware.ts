@@ -16,20 +16,31 @@ async function getLocale(request: NextRequest) {
   return match(languages, locales, defaultLocale);
 }
 
-export async function middleware(request: NextRequest) {
+async function newUrlWithLocale(request: NextRequest) {
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
   );
-  if (pathnameHasLocale) return;
+  if (!pathnameHasLocale) {
+    // Redirect if there is no locale
+    const locale = await getLocale(request);
+    request.nextUrl.pathname = `/${locale}${pathname}`;
+    // e.g. incoming request is /products
+    // The new URL is now /en-US/products
+    return request.nextUrl;
+  }
+  return null;
+}
 
-  // Redirect if there is no locale
-  const locale = await getLocale(request);
-  request.nextUrl.pathname = `/${locale}${pathname}`;
-  // e.g. incoming request is /products
-  // The new URL is now /en-US/products
-  return NextResponse.redirect(request.nextUrl);
+export async function middleware(request: NextRequest) {
+  // Redirect if there is no locale in the pathname
+  const urlWithLocale = await newUrlWithLocale(request);
+  if (urlWithLocale) {
+    return NextResponse.redirect(urlWithLocale);
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
@@ -41,6 +52,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };
