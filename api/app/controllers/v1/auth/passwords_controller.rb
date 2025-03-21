@@ -1,7 +1,7 @@
 class V1::Auth::PasswordsController < ApplicationController
   skip_before_action :authenticate_user!
 
-  def reset
+  def reset_request
     user = User.find_by!(email: params.require(:email))
     token = user.generate_token_for(:reset_password_token)
 

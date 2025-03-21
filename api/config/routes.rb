@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       post "auth" => "auth/sessions#create"
       delete "auth" => "auth/sessions#destroy"
 
-      post "auth/password/reset-request" => "auth/passwords#reset"
+      post "auth/password/request" => "auth/passwords#reset_request"
       get "auth/password/edit" => "auth/passwords#edit"
       put "auth/password" => "auth/passwords#update"
 

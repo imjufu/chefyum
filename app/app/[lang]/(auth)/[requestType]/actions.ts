@@ -24,7 +24,7 @@ export async function authRequest(
   let redirectUrl = formData.get("base_redirect_url");
   switch (formData.get("request_type")) {
     case "reset-password":
-      apiUrl = "/auth/password/reset-request";
+      apiUrl = "/auth/password/request";
       redirectUrl += "/change-password";
       break;
     case "confirmation":
