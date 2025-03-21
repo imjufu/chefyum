@@ -25,7 +25,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
         parts.push(
           <p key={idx}>
             {t(dict.signup, error)}.{" "}
-            <Link href="/password/forgot">
+            <Link href="/reset-password">
               {t(dict.signin, "forgot_password")}
             </Link>
           </p>,

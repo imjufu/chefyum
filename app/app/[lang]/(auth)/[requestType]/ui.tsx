@@ -1,19 +1,22 @@
 "use client";
 
-import { Dictionary } from "@/app/[lang]/dictionaries";
-import { forgotPassword } from "./actions";
+import { useContext } from "react";
+import { IntContext } from "@/app/lib/providers";
+import { authRequest } from "./actions";
 import { useActionState, useState, useEffect } from "react";
 import { t } from "@/app/lib/i18n";
 import { Field, Label, Input } from "@headlessui/react";
 import Alert from "@/app/[lang]/components/alert";
 import Link from "next/link";
 
-export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
-  const [state, action, pending] = useActionState(forgotPassword, undefined);
+export function AuthRequestForm({ requestType }: { requestType: string }) {
+  const [state, action, pending] = useActionState(authRequest, undefined);
 
-  const [redirectUrl, setRedirectUrl] = useState<string>("");
+  const { dictionary: dict } = useContext(IntContext);
+
+  const [baseRedirectUrl, setBaseRedirectUrl] = useState<string>("");
   useEffect(() => {
-    setRedirectUrl(`${window.location.origin}/password/change`);
+    setBaseRedirectUrl(window.location.origin);
   }, []);
 
   return (
@@ -21,18 +24,24 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
       <div className="flex flex-col justify-center w-md mx-auto">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            {t(dict.forgot_password, "title")}
+            {t(dict[requestType], "title")}
           </h2>
         </div>
         {state?.success && (
           <Alert level="success" className="my-5">
-            {t(dict.forgot_password, "success")}
+            {t(dict[requestType], "success")}
           </Alert>
         )}
         <form action={action}>
           <Input
-            name="redirect_url"
-            value={redirectUrl}
+            name="base_redirect_url"
+            value={baseRedirectUrl}
+            readOnly={true}
+            type="hidden"
+          />
+          <Input
+            name="request_type"
+            value={requestType}
             readOnly={true}
             type="hidden"
           />
@@ -52,12 +61,12 @@ export function ForgotPasswordForm({ dict }: { dict: Dictionary }) {
           </Field>
           {state?.errors?.common && (
             <Alert level="error">
-              {t(dict.forgot_password, state.errors.common)}
+              {t(dict[requestType], state.errors.common)}
             </Alert>
           )}
           <div>
             <button disabled={pending} type="submit" tabIndex={3}>
-              {t(dict.forgot_password, "submit")}
+              {t(dict[requestType], "submit")}
             </button>
           </div>
         </form>

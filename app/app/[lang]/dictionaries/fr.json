@@ -13,6 +13,7 @@
     "auth_invalid": "Email ou mot de passe incorrect",
     "auth_last_attempt": "Votre compte sera bloqué au prochain échec",
     "auth_locked": "Votre compte est bloqué. Vous allez recevoir un email de déblocage.",
+    "auth_unconfirmed": "Votre compte n'est pas validé",
     "forgot_password": "Mot de passe oublié ?",
     "signup": "Créer votre compte",
     "confirmed_title": "Bienvenue !",
@@ -31,12 +32,6 @@
     "success": "<h3>Votre compte a été créé !</h3> Vous allez recevoir un email de confirmation.",
     "email_taken": "Ce compte existe déjà"
   },
-  "forgot_password": {
-    "title": "Mot de passe oublié ?",
-    "submit": "Envoyez-moi les instructions de réinitialisation",
-    "not_found": "Ce compte n'existe pas",
-    "success": "Vous allez recevoir un email contenant les instructions de réinitialisation."
-  },
   "change_password": {
     "title": "Changer mon mot de passe",
     "password": "Nouveau mot de passe",
@@ -47,6 +42,24 @@
     "submit": "Changer mon mot de passe",
     "invalid_signature": "Le lien de changement de mot de passe a expiré",
     "success": "Votre mot de passe a été changé avec succès !"
+  },
+  "confirmation": {
+    "title": "Email de validation non reçu ?",
+    "submit": "Ré-envoyer les instructions de confirmation",
+    "not_found": "Ce compte a déjà été validé ou il n'existe pas",
+    "success": "Vous allez recevoir un email contenant les instructions de validation."
+  },
+  "unlock": {
+    "title": "Email de déverrouillage non reçu ?",
+    "submit": "Ré-envoyer les instructions de déblocage",
+    "already_unlocked": "Ce compte n'existe pas ou est déjà déverrouillé",
+    "not_found": "Ce compte n'existe pas ou est déjà déverrouillé"
+  },
+  "reset-password": {
+    "title": "Mot de passe oublié ?",
+    "submit": "Envoyez-moi les instructions de réinitialisation",
+    "not_found": "Ce compte n'existe pas",
+    "success": "Vous allez recevoir un email contenant les instructions de réinitialisation."
   },
   "navbar": {
     "homepage": "Accueil",
