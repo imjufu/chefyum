@@ -5,7 +5,8 @@
     "password": "Mot de passe",
     "password_required": "Mot de passe obligatoire",
     "name": "Nom complet",
-    "name_required": "Nom complet obligatoire"
+    "name_required": "Nom complet obligatoire",
+    "loading": "Chargement des données…"
   },
   "signin": {
     "title": "Connectez-vous à votre compte",
