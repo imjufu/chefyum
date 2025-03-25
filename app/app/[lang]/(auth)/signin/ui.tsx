@@ -26,7 +26,7 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
   useEffect(() => {
     if (state?.user) {
       setFlashMessage({
-        message: t(dict.signin, "success") as string,
+        message: t(dict, "signin.success") as string,
         level: "success",
       });
       setCurrentSession({ isAuth: true, user: state.user, token: state.token });
@@ -34,7 +34,7 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
 
     if (msg) {
       setFlashMessage({
-        message: t(dict.signin, msg) as string,
+        message: t(dict, `signin.${msg}`) as string,
         level: "success",
       });
       return redirect("/signin");
@@ -46,11 +46,11 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
       <div className="flex flex-col justify-center w-md mx-auto">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            {t(dict.signin, "title")}
+            {t(dict, "signin.title")}
           </h2>
           <p className="text-center text-sm/6 text-gray-500">
             Pas encore inscrit ?{" "}
-            <Link href="/signup">{t(dict.signin, "signup")}</Link>
+            <Link href="/signup">{t(dict, "signin.signup")}</Link>
           </p>
         </div>
         <form action={action}>
@@ -61,7 +61,7 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
             type="hidden"
           />
           <Field>
-            <Label htmlFor="email">{t(dict.common, "email")}</Label>
+            <Label htmlFor="email">{t(dict, "common.email")}</Label>
             <Input
               id="email"
               name="email"
@@ -71,15 +71,15 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
               className={state?.errors?.email && "error"}
             />
             {state?.errors?.email && (
-              <p className="error">{t(dict.common, state.errors.email)}</p>
+              <p className="error">{t(dict, `common.${state.errors.email}`)}</p>
             )}
           </Field>
           <Field>
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">{t(dict.common, "password")}</Label>
+              <Label htmlFor="password">{t(dict, "common.password")}</Label>
               <div className="text-sm">
                 <Link href="/reset-password">
-                  {t(dict.signin, "forgot_password")}
+                  {t(dict, "signin.forgot_password")}
                 </Link>
               </div>
             </div>
@@ -91,21 +91,25 @@ export function SigninForm({ dict }: { dict: Dictionary }) {
               className={state?.errors?.password && "error"}
             />
             {state?.errors?.password && (
-              <p className="error">{t(dict.common, state.errors.password)}</p>
+              <p className="error">
+                {t(dict, `common.${state.errors.password}`)}
+              </p>
             )}
           </Field>
           {state?.errors?.common && (
-            <Alert level="error">{t(dict.signin, state.errors.common)}</Alert>
+            <Alert level="error">
+              {t(dict, `signin.${state.errors.common}`)}
+            </Alert>
           )}
           <div>
             <button disabled={pending} type="submit" tabIndex={3}>
-              {t(dict.signin, "submit")}
+              {t(dict, "signin.submit")}
             </button>
           </div>
         </form>
         <div className="mt-4 text-sm flex flex-col items-center">
-          <Link href="/confirmation">{t(dict.confirmation, "title")}</Link>
-          <Link href="/unlock">{t(dict.unlock, "title")}</Link>
+          <Link href="/confirmation">{t(dict, "confirmation.title")}</Link>
+          <Link href="/unlock">{t(dict, "unlock.title")}</Link>
         </div>
       </div>
     </>

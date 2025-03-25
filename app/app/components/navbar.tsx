@@ -48,17 +48,17 @@ function userNavigationItem(
 
 export default function Navbar() {
   const { currentSession, setCurrentSession } = useContext(AuthContext);
-  const { dictionary } = useContext(IntContext);
+  const { dictionary: dict } = useContext(IntContext);
 
   const navigation = [
-    { name: t(dictionary.navbar, "homepage"), href: "#", current: true },
-    { name: t(dictionary.navbar, "pricing"), href: "#", current: false },
-    { name: t(dictionary.navbar, "about"), href: "#", current: false },
+    { name: t(dict, "navbar.homepage"), href: "#", current: true },
+    { name: t(dict, "navbar.pricing"), href: "#", current: false },
+    { name: t(dict, "navbar.about"), href: "#", current: false },
   ];
   const userNavigation = [
-    { name: t(dictionary.navbar, "profile"), href: "#" },
+    { name: t(dict, "navbar.profile"), href: "#" },
     {
-      name: t(dictionary.navbar, "signout"),
+      name: t(dict, "navbar.signout"),
       onClick: () => {
         deleteSession();
         setCurrentSession({ isAuth: false });
@@ -113,7 +113,7 @@ export default function Navbar() {
   } else {
     profilePartContent = (
       <Link href="/signin" className="text-gray-300">
-        {t(dictionary.navbar, "signin")}
+        {t(dict, "navbar.signin")}
         <ArrowLongRightIcon aria-hidden="true" className="ml-2 inline size-6" />
       </Link>
     );

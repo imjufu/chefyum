@@ -48,7 +48,7 @@ export function AuthRequestForm({ requestType }: { requestType: string }) {
             type="hidden"
           />
           <Field>
-            <Label htmlFor="email">{t(dict.common, "email")}</Label>
+            <Label htmlFor="email">{t(dict, "common.email")}</Label>
             <Input
               id="email"
               name="email"
@@ -58,22 +58,22 @@ export function AuthRequestForm({ requestType }: { requestType: string }) {
               className={state?.errors?.email && "error"}
             />
             {state?.errors?.email && (
-              <p className="error">{t(dict.common, state.errors.email)}</p>
+              <p className="error">{t(dict, `common.${state.errors.email}`)}</p>
             )}
           </Field>
           {state?.errors?.common && (
             <Alert level="error">
-              {t(dict[requestType], state.errors.common)}
+              {t(dict, `${requestType}.${state.errors.common}`)}
             </Alert>
           )}
           <div>
             <button disabled={pending} type="submit" tabIndex={3}>
-              {t(dict[requestType], "submit")}
+              {t(dict, `${requestType}.submit`)}
             </button>
           </div>
         </form>
         <div className="mt-4 text-sm flex flex-col items-center">
-          <Link href="/signin">{t(dict.signup, "signin")}</Link>
+          <Link href="/signin">{t(dict, "signup.signin")}</Link>
         </div>
       </div>
     </>

@@ -19,7 +19,7 @@ export function ChangePasswordForm({ dict }: { dict: Dictionary }) {
   useEffect(() => {
     if (state?.success) {
       setFlashMessage({
-        message: t(dict.change_password, "success") as string,
+        message: t(dict, "change_password.success") as string,
         level: "success",
       });
       redirect("/signin");
@@ -31,14 +31,14 @@ export function ChangePasswordForm({ dict }: { dict: Dictionary }) {
       <div className="flex flex-col justify-center w-md mx-auto">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            {t(dict.change_password, "title")}
+            {t(dict, "change_password.title")}
           </h2>
         </div>
         <form action={action}>
           <Input name="token" value={token} readOnly={true} type="hidden" />
           <Field>
             <Label htmlFor="password">
-              {t(dict.change_password, "password")}
+              {t(dict, "change_password.password")}
             </Label>
             <Input
               id="password"
@@ -50,13 +50,13 @@ export function ChangePasswordForm({ dict }: { dict: Dictionary }) {
             />
             {state?.errors?.password && (
               <p className="error">
-                {t(dict.change_password, state.errors.password)}
+                {t(dict, `change_password.${state.errors.password}`)}
               </p>
             )}
           </Field>
           <Field>
             <Label htmlFor="password">
-              {t(dict.change_password, "password_confirmation")}
+              {t(dict, "change_password.password_confirmation")}
             </Label>
             <Input
               id="password_confirmation"
@@ -67,18 +67,21 @@ export function ChangePasswordForm({ dict }: { dict: Dictionary }) {
             />
             {state?.errors?.password_confirmation && (
               <p className="error">
-                {t(dict.change_password, state.errors.password_confirmation)}
+                {t(
+                  dict,
+                  `change_password.${state.errors.password_confirmation}`,
+                )}
               </p>
             )}
           </Field>
           {state?.errors?.common && (
             <Alert level="error">
-              {t(dict.change_password, state.errors.common)}
+              {t(dict, `change_password.${state.errors.common}`)}
             </Alert>
           )}
           <div>
             <button disabled={pending} type="submit" tabIndex={3}>
-              {t(dict.change_password, "submit")}
+              {t(dict, "change_password.submit")}
             </button>
           </div>
         </form>
