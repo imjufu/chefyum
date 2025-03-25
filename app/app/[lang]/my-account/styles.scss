@@ -1,0 +1,14 @@
+@use "tailwindcss";
+
+.lines {
+  @apply divide-y divide-gray-100;
+  .line {
+    @apply px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0;
+    dt {
+      @apply text-sm/6 font-medium text-gray-900;
+    }
+    dd {
+      @apply mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0;
+    }
+  }
+}

@@ -21,6 +21,16 @@
     "confirmed": "Votre compte a été validé.",
     "unlocked": "Votre compte a été débloqué."
   },
+  "my_account": {
+    "title": "Mon compte",
+    "description": "Mes informations personnelles.",
+    "security": "Informations concernant la sécurité du compte",
+    "sign_in_count": "Nombre de connexions",
+    "current_sign_in_at": "Date de la connexion actuelle",
+    "last_sign_in_at": "Date de la précédente connexion",
+    "current_sign_in_ip": "Adresse IP de la connexion actuelle",
+    "last_sign_in_ip": "Adresse IP de la précédente connexion"
+  },
   "signup": {
     "title": "Créer votre compte",
     "submit": "S'inscrire",

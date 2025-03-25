@@ -31,10 +31,11 @@ export function t(
 }
 
 export function d(
-  date: string,
+  date: string | null | undefined,
   locale: Locales,
   options?: Intl.DateTimeFormatOptions,
 ) {
+  if (!date) return "";
   return new Date(date).toLocaleString(locale, {
     dateStyle: "medium",
     timeStyle: "short",

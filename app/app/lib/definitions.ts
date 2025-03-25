@@ -1,6 +1,11 @@
 export type User = {
   name: string;
   email: string;
+  sign_in_count?: string;
+  current_sign_in_at?: string;
+  last_sign_in_at?: string;
+  current_sign_in_ip?: string;
+  last_sign_in_ip?: string;
 };
 
 export type Session = {

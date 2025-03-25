@@ -51,12 +51,12 @@ export default function Navbar() {
   const { dictionary: dict } = useContext(IntContext);
 
   const navigation = [
-    { name: t(dict, "navbar.homepage"), href: "#", current: true },
+    { name: t(dict, "navbar.homepage"), href: "/", current: true },
     { name: t(dict, "navbar.pricing"), href: "#", current: false },
     { name: t(dict, "navbar.about"), href: "#", current: false },
   ];
   const userNavigation = [
-    { name: t(dict, "navbar.profile"), href: "#" },
+    { name: t(dict, "navbar.profile"), href: "/my-account" },
     {
       name: t(dict, "navbar.signout"),
       onClick: () => {
