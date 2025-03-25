@@ -72,7 +72,9 @@ export default function Navbar() {
     profilePartContent = (
       <Menu as="div" className="relative ml-3">
         <MenuButton className="cursor-pointer relative flex max-w-xs bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium">
-          Welcome, {currentSession.user?.name}
+          {t(dict, "navbar.welcome", {
+            userName: currentSession.user?.name || "",
+          })}
         </MenuButton>
         <MenuItems
           transition

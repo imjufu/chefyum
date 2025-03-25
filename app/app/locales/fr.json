@@ -74,6 +74,7 @@
     "about": "À propos",
     "profile": "Mon compte",
     "signin": "Se connecter",
-    "signout": "Se déconnecter"
+    "signout": "Se déconnecter",
+    "welcome": "Bienvenue, :userName: !"
   }
 }
