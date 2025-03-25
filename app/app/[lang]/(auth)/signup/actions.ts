@@ -28,9 +28,8 @@ export async function signup(
     user: validatedFields.data,
     redirect_url: formData.get("redirect_url"),
   });
-  const json = await res.json();
 
-  if (json.success) {
+  if (res.success) {
     return {
       success: true,
     };
@@ -39,7 +38,7 @@ export async function signup(
       success: false,
       data: currentData,
       errors: {
-        common: json.data.errors,
+        common: res.data.errors,
       },
     };
   }

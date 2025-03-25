@@ -25,20 +25,19 @@ export async function signin(
     ...validatedFields.data,
     unlocked_redirect_url: formData.get("unlocked_redirect_url"),
   });
-  const json = await res.json();
 
-  if (json.success) {
+  if (res.success) {
     // Create stateless session
     await setSession(
-      json.data.access_token,
-      json.data.user,
-      new Date(json.data.expires_at),
+      res.data.access_token,
+      res.data.user,
+      new Date(res.data.expires_at),
     );
-    return { token: json.data.access_token, user: json.data.user };
+    return { token: res.data.access_token, user: res.data.user };
   } else {
     return {
       errors: {
-        common: json.data.errors,
+        common: res.data.errors,
       },
     };
   }

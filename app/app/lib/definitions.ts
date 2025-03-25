@@ -9,4 +9,9 @@ export type Session = {
   token?: string;
 };
 
+export type ApiResponse = {
+  success: boolean;
+  data: unknown;
+};
+
 export type AlertLevel = "success" | "error";

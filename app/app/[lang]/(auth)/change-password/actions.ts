@@ -25,15 +25,14 @@ export async function changePassword(
     token: formData.get("token"),
     password: validatedFields.data["password"],
   });
-  const json = await res.json();
 
-  if (json.success) {
+  if (res.success) {
     return { success: true };
   } else {
     return {
       success: false,
       errors: {
-        common: json.data.errors,
+        common: res.data.errors,
       },
     };
   }

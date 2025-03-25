@@ -50,15 +50,14 @@ export async function authRequest(
     redirect_url: redirectUrl,
     ...validatedFields.data,
   });
-  const json = await res.json();
 
-  if (json.success) {
+  if (res.success) {
     return { success: true };
   } else {
     return {
       success: false,
       errors: {
-        common: json.data.errors,
+        common: res.data.errors,
       },
     };
   }
