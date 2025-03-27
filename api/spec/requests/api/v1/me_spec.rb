@@ -18,7 +18,9 @@ RSpec.describe "Api::V1::Me", type: :request do
       end
 
       it 'returns the user in json' do
-        expect(json).to eq({ 'data' => user.as_json, 'success' => true })
+        expect(json).to eq({ 'data' => user.as_json(
+          { only: [ :id, :name, :email, :unconfirmed_email, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip ] }
+        ), 'success' => true })
       end
     end
   end

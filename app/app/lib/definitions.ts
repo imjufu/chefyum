@@ -1,6 +1,7 @@
 export type User = {
   name: string;
   email: string;
+  unconfirmed_email?: string;
   sign_in_count?: string;
   current_sign_in_at?: string;
   last_sign_in_at?: string;
