@@ -19,19 +19,17 @@ export function AuthRequestForm({ requestType }: { requestType: string }) {
     setBaseRedirectUrl(window.location.origin);
   }, []);
 
-  console.log("REQUEST", requestType);
-
   return (
     <>
       <div className="flex flex-col justify-center w-md mx-auto">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            {t(dict[requestType], "title")}
+            {t(dict, `${requestType}.title`)}
           </h2>
         </div>
         {state?.success && (
           <Alert level="success" className="my-5">
-            {t(dict[requestType], "success")}
+            {t(dict, `${requestType}.success`)}
           </Alert>
         )}
         <form action={action}>
