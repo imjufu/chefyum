@@ -1,4 +1,5 @@
 @use "tailwindcss";
+@use "../globals.scss";
 
 .lines {
   @apply divide-y divide-gray-100;

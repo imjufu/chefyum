@@ -6,7 +6,9 @@
     "password_required": "Mot de passe obligatoire",
     "name": "Nom complet",
     "name_required": "Nom complet obligatoire",
-    "loading": "Chargement des données…"
+    "loading": "Chargement des données…",
+    "update": "Mettre à jour",
+    "cancel": "Annuler"
   },
   "signin": {
     "title": "Connectez-vous à votre compte",
@@ -29,7 +31,10 @@
     "current_sign_in_at": "Date de la connexion actuelle",
     "last_sign_in_at": "Date de la précédente connexion",
     "current_sign_in_ip": "Adresse IP de la connexion actuelle",
-    "last_sign_in_ip": "Adresse IP de la précédente connexion"
+    "last_sign_in_ip": "Adresse IP de la précédente connexion",
+    "success": "Votre compte a été mis à jour",
+    "unconfirmed_email": "\":email:\" est en attente de confirmation",
+    "confirmed": "Votre email a été mis à jour"
   },
   "signup": {
     "title": "Créer votre compte",

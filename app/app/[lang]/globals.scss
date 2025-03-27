@@ -1,7 +1,11 @@
 @use "tailwindcss";
 
 @utility btn {
-  @apply justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600;
+  @apply cursor-pointer justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-teal-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600;
+}
+
+@utility btn-link {
+  @apply bg-white text-teal-600 hover:bg-gray-100 focus-visible:outline-gray-100;
 }
 
 @utility alert {
@@ -23,6 +27,10 @@
   a, h3 {
     @apply text-red-800;
   }
+}
+
+@utility text-muted {
+  @apply text-gray-400;
 }
 
 @layer base {

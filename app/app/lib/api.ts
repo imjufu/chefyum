@@ -14,12 +14,16 @@ class Client {
     return await this.send("POST", endpoint, jsonBody);
   }
 
+  async patch(endpoint: string, jsonBody: object) {
+    return await this.send("PATCH", endpoint, jsonBody);
+  }
+
   async put(endpoint: string, jsonBody: object) {
     return await this.send("PUT", endpoint, jsonBody);
   }
 
   async send(
-    method: "POST" | "PUT",
+    method: "POST" | "PUT" | "PATCH",
     endpoint: string,
     jsonBody: object,
   ): Promise<ApiResponse> {
