@@ -44,7 +44,7 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
           {t(dict, "signup.title")}
         </h2>
         <p className="text-center text-sm/6 text-gray-500">
-          {t(dict, "signup.already_signup")}
+          <span>{t(dict, "signup.already_signup")}</span>&nbsp;
           <Link href="/signin">{t(dict, "signup.signin")}</Link>
         </p>
       </div>
