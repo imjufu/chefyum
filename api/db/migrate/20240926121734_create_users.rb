@@ -4,6 +4,11 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.string :name, null: false
       t.string :email, null: false
       t.string :password_digest, null: false
+      t.string :gender
+      t.date :birthdate
+      t.integer :height_in_centimeters
+      t.integer :weight_in_grams
+      t.string :activity_level
 
       ## Trackable
       t.integer  :sign_in_count, default: 0, null: false

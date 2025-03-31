@@ -18,6 +18,11 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_26_121734) do
     t.string "name", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
+    t.string "gender"
+    t.date "birthdate"
+    t.integer "height_in_centimeters"
+    t.integer "weight_in_grams"
+    t.string "activity_level"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
