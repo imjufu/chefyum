@@ -11,6 +11,8 @@ class MacroCalculator < CalorieCalculator
     return false unless valid?
 
     {
+      tdee:,
+      bmr:,
       protein_in_grams:,
       lipid_in_grams:,
       carbohydrate_in_grams:

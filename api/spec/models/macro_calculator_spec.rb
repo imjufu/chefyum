@@ -18,8 +18,10 @@ RSpec.describe MacroCalculator do
       expect(macro_calc.calculate).to be_a Hash
     end
 
-    it 'returns the macronutrients in grams' do
+    it 'returns the tdee, the bmr and the macronutrients in grams' do
       expect(macro_calc.calculate).to eq({
+                                           tdee: 2689,
+                                           bmr: 1735,
                                            carbohydrate_in_grams: 326,
                                            lipid_in_grams: 89,
                                            protein_in_grams: 144
