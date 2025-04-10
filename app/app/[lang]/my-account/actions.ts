@@ -13,8 +13,13 @@ export async function update(
 ): Promise<FormState> {
   // Validate form fields
   const currentData = {
-    email: formData.get("email") as string,
-    name: formData.get("name") as string,
+    email: formData.get("email")?.toString(),
+    name: formData.get("name")?.toString(),
+    birthdate: new Date(formData.get("birthdate")?.toString()),
+    gender: formData.get("gender")?.toString(),
+    height_in_centimeters: +formData.get("height_in_centimeters")?.toString(),
+    weight_in_grams: +formData.get("weight_in_grams")?.toString(),
+    activity_level: formData.get("activity_level")?.toString(),
   };
   const validatedFields = UpdateFormSchema.safeParse(currentData);
 

@@ -3,7 +3,7 @@ import { Dictionary, Locales } from "./dictionaries";
 export function t(
   dict: Dictionary,
   path: string | string[],
-  replacements?: { [key: string]: string },
+  replacements?: { [key: string]: string | number },
 ): string | string[] {
   const translate = (path: string): string => {
     let translated:
