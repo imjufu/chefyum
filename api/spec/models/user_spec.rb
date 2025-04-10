@@ -265,4 +265,24 @@ RSpec.describe User, type: :model do
       end.to have_enqueued_mail(UserMailer, :welcome_email)
     end
   end
+
+  describe '#as_json' do
+    let(:basic_data) { [ "id", "name", "email", "unconfirmed_email", "gender", "birthdate", "height_in_centimeters", "weight_in_grams", "activity_level" ] }
+
+    it 'returns a Hash' do
+      expect(user.as_json).to be_a Hash
+    end
+
+    it 'returns basic data' do
+      expect(user.as_json.keys).to match_array(basic_data)
+    end
+
+    context 'with security data' do
+      it 'returns basic data with security data' do
+        expect(user.as_json(with_security_data: true).keys).to match_array(
+          basic_data + [ "sign_in_count", "current_sign_in_at", "last_sign_in_at", "current_sign_in_ip", "last_sign_in_ip" ]
+        )
+      end
+    end
+  end
 end

@@ -6,9 +6,18 @@
     "password_required": "Mot de passe obligatoire",
     "name": "Nom complet",
     "name_required": "Nom complet obligatoire",
+    "birthdate": "Date d'anniversaire",
+    "birthdate_invalid": "Date invalide",
+    "gender": "Genre",
+    "male": "Homme",
+    "female": "Femme",
+    "height": "Taille",
+    "weight": "Poids",
+    "activity_level": "Niveau d'activité",
     "loading": "Chargement des données…",
     "update": "Mettre à jour",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "Required": "Requis"
   },
   "signin": {
     "title": "Connectez-vous à votre compte",
@@ -34,7 +43,25 @@
     "last_sign_in_ip": "Adresse IP de la précédente connexion",
     "success": "Votre compte a été mis à jour",
     "unconfirmed_email": "\":email:\" est en attente de confirmation",
-    "confirmed": "Votre email a été mis à jour"
+    "confirmed": "Votre email a été mis à jour",
+    "height": ":height:m",
+    "weight": ":weight:kg",
+    "in_grams": ":grams:g",
+    "in_cals": ":cals:Kcal",
+    "tdee": "Besoins caloriques quotidiens",
+    "bmr": "Métabolisme de base",
+    "protein_in_grams": "Protéines",
+    "lipid_in_grams": "Lipides",
+    "carbohydrate_in_grams": "Glucides",
+    "cal": "Mes besoins journaliers en calories",
+    "macro": "Mes besoins journaliers en macronutriments",
+    "activity_level": {
+      "sedentary": "Tu fais peu ou pas d'exercice",
+      "lightly_active": "Tu fais de l'exercice un à trois jours par semaine",
+      "moderately_active": "Tu fais de l'exercice trois à cinq jours par semaine",
+      "active": "Tu fais de l'exercice six à sept jours par semaine",
+      "very_active": "Tu fais de l'exercice deux fois par jour, six à sept jours par semaine"
+    }
   },
   "signup": {
     "title": "Créer votre compte",

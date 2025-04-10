@@ -1,8 +1,6 @@
 class V1::MeController < ApplicationController
   def index
-    render json: success_response(@current_user.as_json(
-      { only: [ :id, :name, :email, :unconfirmed_email, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip ] }
-    ))
+    render json: success_response(@current_user.as_json(with_security_data: true, with_macro_data: true))
   end
 
   def update
@@ -16,6 +14,6 @@ class V1::MeController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :gender, :birthdate, :height_in_centimeters, :weight_in_kilograms, :activity_level)
   end
 end
