@@ -1,4 +1,4 @@
-require "open-uri"
+require "net/http"
 require "zip"
 
 module Ciqual
@@ -9,53 +9,52 @@ module Ciqual
     DATASET_URI = "https://www.data.gouv.fr/fr/datasets/r/e31dd87c-8ad0-43e4-bdaa-af84ad243dc6"
     USER_AGENT = "ChefYum/0.0.1"
 
+    def initialize
+      @uri = URI(DATASET_URI)
+      @tmpdir = Rails.root.join("tmp", "ciqual", SecureRandom.urlsafe_base64)
+      @http_response = nil
+    end
+
     def download
-      # Make a temporary directory to store the archive and the extracted xml files
-      tmp_dir = Rails.root.join("tmp", "ciqual", SecureRandom.urlsafe_base64)
-      Dir.mkdir(tmp_dir)
+      Dir.mkdir(@tmpdir)
+      @target = File.open(@tmpdir.join("archive.zip"), "w")
+      download_archive
+      extract_archive
+      @tmpdir
+    end
 
-      url = URI(DATASET_URI)
-      options = {}
+    protected
 
-      # It was shown that in a random sample approximately 20% of websites will
-      # simply refuse a request which doesn't have a valid User-Agent.
-      options["User-Agent"] = USER_AGENT
-
-      # Finally we download the file. Here we mustn't use simple #open that open-uri
-      # overrides, because this is vulnerable to shell execution attack (if #open
-      # method detects a starting pipe (e.g. "| ls"), it will execute the following
-      # as a shell command).
-      io = url.open(options)
-
-      # open-uri will return a StringIO instead of a Tempfile if the filesize
-      # is less than 10 KB, so we patch this behaviour by converting it into a
-      # Tempfile.
-      archive_path = tmp_dir.join("archive.zip")
-      if io.is_a?(StringIO)
-        File.open(archive_path, "w") { |f| f.write(io.read) }
-      else # io is a Tempfile
-        io.close
-        FileUtils.mv(io.path, archive_path)
-      end
-
-      Zip::File.open(archive_path) do |zip_files|
-        zip_files.each do |zip_file|
-          zip_file.extract(tmp_dir.join(zip_file.name))
+    def download_archive
+      Net::HTTP.start(@uri.host, @uri.port, use_ssl: true) do |http|
+        request = Net::HTTP::Get.new @uri
+        request["User-Agent"] = USER_AGENT
+        http.request request do |response|
+          @http_response = response
+          case response.code
+          when "302"
+            @uri = URI(response["location"])
+            return download_archive
+          when "200"
+            @target.binmode # no newline conversion | no encoding conversion | encoding is ASCII-8BIT
+            response.read_body do |chunk|
+              chunk = yield chunk if block_given?
+              @target.write(chunk)
+            end
+            return @target.tap(&:close)
+          else
+            raise Net::HTTPError.new(response.body, nil)
+          end
         end
       end
+    end
 
-      tmp_dir
-    rescue *[
-      SocketError,          # domain not found
-      OpenURI::HTTPError,   # response status 4xx or 5xx
-      RuntimeError,         # redirection errors (e.g. redirection loop)
-      URI::InvalidURIError  # invalid URL
-    ] => error
-      # open-uri will throw a RuntimeError when it detects a redirection loop, so
-      # we want to reraise the exception if it was some other RuntimeError
-      raise if error.instance_of?(RuntimeError) && error.message !~ /redirection/
-      # We raise our unified Error class
-      raise Error, "Download failed (#{url}): #{error.message}"
+    def extract_archive
+      Zip::File.open(@target.path) do |zip_files|
+        zip_files.each do |zip_file|
+          zip_file.extract(@tmpdir.join(zip_file.name))
+        end
+      end
     end
   end
 end

@@ -5,6 +5,8 @@ module Ciqual
     def initialize(dirpath)
       @dirpath = Pathname.new(dirpath)
       @logger = Rails.logger
+      @food_groups = {}
+      @foods = {}
     end
 
     def parse!
