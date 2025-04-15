@@ -35,6 +35,12 @@ gem "thruster", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 
+# Ruby module for reading and writing zip files
+gem "rubyzip"
+
+# provides a sensible, easy-to-understand API for reading, writing, modifying, and querying XML and HTML documents
+gem "nokogiri"
+
 group :development do
   gem "letter_opener"
 end
