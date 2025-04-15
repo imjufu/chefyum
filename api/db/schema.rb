@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_09_26_121734) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_15_070653) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "food_groups", primary_key: "code", id: :string, force: :cascade do |t|
+    t.string "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "foods", primary_key: "code", id: :string, force: :cascade do |t|
+    t.string "label"
+    t.jsonb "nutrition_facts"
+    t.string "food_group_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
@@ -37,4 +51,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_09_26_121734) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
+
+  add_foreign_key "foods", "food_groups", column: "food_group_code", primary_key: "code"
 end
