@@ -5,7 +5,9 @@ FactoryBot.define do
     password { Faker::Internet.password(min_length: 12) }
 
     trait :confirmed do
-      confirmed_at { Faker::Date.forward }
+      after(:create) do |user|
+        user.confirm!
+      end
     end
   end
 end
