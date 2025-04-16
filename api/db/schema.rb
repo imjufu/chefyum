@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_15_070653) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_16_124701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "cooking_recipes", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.jsonb "steps"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "food_groups", primary_key: "code", id: :string, force: :cascade do |t|
     t.string "label"
@@ -24,6 +32,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_070653) do
     t.string "label"
     t.jsonb "nutrition_facts"
     t.string "food_group_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ingredients", primary_key: ["cooking_recipe_id", "food_code"], force: :cascade do |t|
+    t.integer "cooking_recipe_id", null: false
+    t.string "food_code", null: false
+    t.decimal "quantity", precision: 5, scale: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -53,4 +69,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_15_070653) do
   end
 
   add_foreign_key "foods", "food_groups", column: "food_group_code", primary_key: "code"
+  add_foreign_key "ingredients", "cooking_recipes"
+  add_foreign_key "ingredients", "foods", column: "food_code", primary_key: "code"
 end
