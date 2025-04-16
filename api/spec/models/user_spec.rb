@@ -2,13 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   subject(:unconfirmed_user) do
-    described_class.create(FactoryBot.attributes_for(:user, password: password))
+    FactoryBot.create(:user, password: password)
   end
 
   subject(:user) do
-    user = described_class.create(FactoryBot.attributes_for(:user, password: password))
-    user.confirm!
-    user
+    FactoryBot.create(:user, :confirmed, password: password)
   end
 
   let(:new_email) { Faker::Internet.email }
