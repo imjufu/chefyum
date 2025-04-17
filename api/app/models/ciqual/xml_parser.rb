@@ -1,37 +1,41 @@
 module Ciqual
   class XmlParser
-    attr_reader :food_groups, :foods
+    attr_reader :foods
+
+    SOURCE = "ciqual.anses"
+
+    NUTRITION_FACTS_MAPPINGS = {
+      "328" => :energy,
+      "25003" => :proteins,
+      "31000" => :carbohydrates,
+      "40000" => :lipids,
+      "32000" => :sugars,
+      "40302" => :saturated_fatty_acids,
+      "10004" => :salt,
+      "34100" => :fibers
+    }
 
     def initialize(dirpath)
       @dirpath = Pathname.new(dirpath)
       @logger = Rails.logger
-      @food_groups = {}
       @foods = {}
     end
 
     def parse!
       files = {
-        const_file: nil,
-        alim_grp_file: nil,
         alim_file: nil,
         compo_file: nil
       }
 
       Dir.glob(@dirpath.join("*.xml")).each do |filepath|
         filename = filepath.remove("#{@dirpath}/")
-        if filename.match?(/^alim_grp_/)
-          files[:alim_grp_file] = filepath
-        elsif filename.match?(/^alim_/)
+        if filename.match?(/^alim_\d/)
           files[:alim_file] = filepath
-        elsif filename.match?(/^const_/)
-          files[:const_file] = filepath
         elsif filename.match?(/^compo_/)
           files[:compo_file] = filepath
         end
       end
 
-      parse_const_file(files[:const_file])
-      parse_alim_grp_file(files[:alim_grp_file])
       parse_alim_file(files[:alim_file])
       parse_compo_file(files[:compo_file])
 
@@ -39,29 +43,6 @@ module Ciqual
     end
 
     protected
-
-    def parse_alim_grp_file(filepath)
-      @logger.debug "Parsing alim grp file…"
-      @food_groups = {}
-      doc = Nokogiri.XML(File.open(filepath, "r"))
-      ciqual_groups = doc.xpath("//ALIM_GRP")
-      total = ciqual_groups.length
-      ciqual_groups.each_with_index do |ciqual_group, i|
-        @logger.debug "-> alim grp: #{i+1} / #{total}"
-        code = label = nil
-        ciqual_group.element_children.each do |element|
-          content = element.children.first.to_s.strip.encode("utf-8")
-          if element.name == "alim_ssssgrp_code" && content != "000000"
-            code = content
-          end
-          if element.name == "alim_ssssgrp_nom_fr"
-            label = content
-          end
-        end
-        @food_groups[code] = { code: code, label: label } unless code.nil?
-      end
-      true
-    end
 
     def parse_alim_file(filepath)
       @logger.debug "Parsing alim file…"
@@ -71,7 +52,7 @@ module Ciqual
       total = ciqual_alims.length
       ciqual_alims.each_with_index do |ciqual_alim, i|
         @logger.debug "-> alim: #{i+1} / #{total}"
-        code = label = group_code = nil
+        code = label = nil
         ciqual_alim.element_children.each do |element|
           content = element.children.first.to_s.strip.encode("utf-8")
           case element.name
@@ -79,34 +60,9 @@ module Ciqual
             code = content
           when "alim_nom_fr"
             label = content
-          when "alim_ssssgrp_code"
-            group_code = @food_groups.key?(content) ? content : nil
           end
         end
-        @foods[code] = { code: code, label: label, food_group_code: group_code, nutrition_facts: [] } unless code.nil?
-      end
-      true
-    end
-
-    def parse_const_file(filepath)
-      @logger.debug "Parsing const file…"
-      @components = {}
-      doc = Nokogiri.XML(File.open(filepath, "r"))
-      ciqual_consts = doc.xpath("//CONST")
-      total = ciqual_consts.length
-      ciqual_consts.each_with_index do |ciqual_const, i|
-        @logger.debug "-> const: #{i+1} / #{total}"
-        code = label = nil
-        ciqual_const.element_children.each do |element|
-          content = element.children.first.to_s.strip.encode("utf-8")
-          case element.name
-          when "const_code"
-            code = content
-          when "const_nom_fr"
-            label = content
-          end
-        end
-        @components[code] = { code: code, label: label } unless code.nil?
+        @foods[code] = { source: SOURCE, source_code: code, source_label: label, nutrition_facts: {} } unless code.nil?
       end
       true
     end
@@ -130,7 +86,10 @@ module Ciqual
             value = content
           end
         end
-        @foods[alim_code][:nutrition_facts] << @components[const_code].merge({ value: value }) unless alim_code.nil?
+        nf_sym = NUTRITION_FACTS_MAPPINGS[const_code]
+        if @foods.key?(alim_code) && nf_sym
+          @foods[alim_code][:nutrition_facts][nf_sym] = value.sub(",", ".").to_f
+        end
       end
       true
     end

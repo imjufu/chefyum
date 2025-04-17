@@ -22,26 +22,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_124701) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "food_groups", primary_key: "code", id: :string, force: :cascade do |t|
-    t.string "label"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "foods", primary_key: "code", id: :string, force: :cascade do |t|
+  create_table "foods", force: :cascade do |t|
     t.string "label"
     t.jsonb "nutrition_facts"
-    t.string "food_group_code"
+    t.string "source"
+    t.string "source_code"
+    t.string "source_label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["source", "source_code"], name: "index_foods_on_source_and_source_code", unique: true
   end
 
-  create_table "ingredients", primary_key: ["cooking_recipe_id", "food_code"], force: :cascade do |t|
-    t.integer "cooking_recipe_id", null: false
-    t.string "food_code", null: false
+  create_table "ingredients", primary_key: ["cooking_recipe_id", "food_id"], force: :cascade do |t|
+    t.bigint "cooking_recipe_id", null: false
+    t.bigint "food_id", null: false
     t.decimal "quantity", precision: 5, scale: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cooking_recipe_id"], name: "index_ingredients_on_cooking_recipe_id"
+    t.index ["food_id"], name: "index_ingredients_on_food_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,8 +66,4 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_124701) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
-
-  add_foreign_key "foods", "food_groups", column: "food_group_code", primary_key: "code"
-  add_foreign_key "ingredients", "cooking_recipes"
-  add_foreign_key "ingredients", "foods", column: "food_code", primary_key: "code"
 end

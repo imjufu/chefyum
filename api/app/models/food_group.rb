@@ -1,2 +1,0 @@
-class FoodGroup < ApplicationRecord
-end

@@ -6,7 +6,6 @@ class UpdateCiqualDataJob < ApplicationJob
     parser = Ciqual::XmlParser.new(dirpath)
     parser.parse!
 
-    FoodGroup.upsert_all(parser.food_groups.values, returning: false, unique_by: :code)
-    Food.upsert_all(parser.foods.values, returning: false, unique_by: :code)
+    Food.upsert_all(parser.foods.values, returning: false, unique_by: [ :source, :source_code ])
   end
 end
