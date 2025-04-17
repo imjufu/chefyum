@@ -33,6 +33,9 @@ if Rails.env.development?
       { step: 4, instruction: "Ajoutez un filet d'huile d'olive. Salez et poivrez." }
     ]
   )
-  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_code: '36017', quantity: 100)
-  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_code: '9870', quantity: 80)
+
+  chicken = Food.find_by(source: Ciqual::XmlParser::SOURCE, source_code: '36017')
+  pasta = Food.find_by(source: Ciqual::XmlParser::SOURCE, source_code: '9870')
+  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_id: chicken.id, quantity: 100)
+  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_id: pasta.id, quantity: 80)
 end
