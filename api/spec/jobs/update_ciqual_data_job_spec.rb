@@ -26,7 +26,7 @@ RSpec.describe UpdateCiqualDataJob, type: :job do
       end.to change { Food.first&.as_json }.from(nil).to(
         match({
           "id" => an_instance_of(Integer),
-          "label" => nil,
+          "label" => "Pastis",
           "source" => "ciqual.anses",
           "source_code" => "1000",
           "source_label" => "Pastis",
