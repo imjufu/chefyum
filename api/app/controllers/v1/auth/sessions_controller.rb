@@ -22,6 +22,6 @@ class V1::Auth::SessionsController < ApplicationController
   end
 
   def destroy
-    @current_user
+    current_user
   end
 end

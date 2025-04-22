@@ -2,6 +2,8 @@ class ApplicationController < ActionController::API
   include JsonResponseConcern
   include Pagy::Backend
 
+  attr_reader :current_user
+
   before_action :authenticate_user!
 
   after_action { pagy_headers_merge(@pagy) if @pagy }
