@@ -38,8 +38,11 @@ gem "rack-cors"
 # Ruby module for reading and writing zip files
 gem "rubyzip"
 
-# provides a sensible, easy-to-understand API for reading, writing, modifying, and querying XML and HTML documents
+# Provides a sensible, easy-to-understand API for reading, writing, modifying, and querying XML and HTML documents
 gem "nokogiri"
+
+# Pagination Ruby Gem
+gem "pagy"
 
 group :development do
   gem "letter_opener"

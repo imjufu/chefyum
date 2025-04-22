@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::API
   include JsonResponseConcern
+  include Pagy::Backend
+
   before_action :authenticate_user!
+
+  after_action { pagy_headers_merge(@pagy) if @pagy }
 
   rescue_from ActionController::ParameterMissing do |exception|
     render json: error_response([ exception.message ]), status: :bad_request
@@ -12,6 +16,10 @@ class ApplicationController < ActionController::API
 
   rescue_from ActiveSupport::MessageVerifier::InvalidSignature do |exception|
     render json: error_response([ "invalid_signature" ]), status: :unauthorized
+  end
+
+  rescue_from Pagy::OverflowError do |exception|
+    render json: error_response([ "invalid_page" ]), status: :not_found
   end
 
   def authenticate_user!
