@@ -24,6 +24,10 @@ class ApplicationController < ActionController::API
     render json: error_response([ "invalid_page" ]), status: :not_found
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render json: error_response([ "unauthorized" ]), status: :unauthorized
+  end
+
   def authenticate_user!
     bearer_token = request.headers["Authorization"]
     access_token = bearer_token&.split&.last # Removes the 'Bearer' from the string
