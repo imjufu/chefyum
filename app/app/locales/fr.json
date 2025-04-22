@@ -19,6 +19,9 @@
     "cancel": "Annuler",
     "Required": "Requis"
   },
+  "home": {
+    "pitch": "<p>Chez <strong>ChefYum</strong>, on simplifie la vie des familles en les aidant à planifier des repas sains et adaptés à leurs contraintes alimentaires, semaine après semaine.</p><p>Allergies, intolérances, régimes végétariens ou simplement envie de mieux manger ? Notre plateforme propose des menus personnalisés, faciles à préparer, avec des recettes équilibrées, une liste de courses automatique et des conseils pratiques pour gagner du temps.</p><p>Notre objectif : rendre l’alimentation saine accessible, simple et agréable pour toutes les familles, même les plus occupées.</p><p><strong>ChefYum</strong>, c’est le bon repas, pour les bonnes personnes, au bon moment.</p>"
+  },
   "signin": {
     "title": "Connectez-vous à votre compte",
     "submit": "Se connecter",
