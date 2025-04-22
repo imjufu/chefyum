@@ -1,18 +1,18 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Ciqual::XmlParser do
-  let(:subject) { Ciqual::XmlParser.new(Rails.root.join('spec/fixtures/lite_ciqual_data')) }
+  let(:subject) { Ciqual::XmlParser.new(Rails.root.join("spec/fixtures/lite_ciqual_data")) }
 
-  describe '#parse!' do
-    it 'returns true' do
+  describe "#parse!" do
+    it "returns true" do
       expect(subject.parse!).to be true
     end
 
-    it 'parses foods' do
+    it "parses foods" do
       expect { subject.parse! }.to change { subject.foods.length }.from(0).to(3185)
     end
 
-    it 'sets foods' do
+    it "sets foods" do
       subject.parse!
       expect(subject.foods.first).to eq([
         "1000",

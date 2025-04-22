@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :food do
     label { }
-    source { 'faker' }
+    source { "faker" }
     source_code { Faker::Barcode.ean }
     source_label { Faker::Food.ingredient }
     nutrition_facts do

@@ -1,17 +1,17 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe CookingRecipe, type: :model do
   subject(:cooking_recipe) do
     FactoryBot.create(:cooking_recipe)
   end
 
-  describe '#calculate_nutritional_values' do
-    it 'returns a Hash' do
-      expect(cooking_recipe.calculate_nutritional_values).to be_a Hash
+  describe "#nutritional_values" do
+    it "returns a Hash" do
+      expect(cooking_recipe.nutritional_values).to be_a Hash
     end
 
-    it 'returns nutritional values' do
-      expect(cooking_recipe.calculate_nutritional_values).to match({
+    it "returns nutritional values" do
+      expect(cooking_recipe.nutritional_values).to match({
         carbohydrates: an_instance_of(BigDecimal),
         energy: an_instance_of(BigDecimal),
         fibers: an_instance_of(BigDecimal),
