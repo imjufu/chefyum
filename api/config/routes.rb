@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   scope :api do
     namespace :v1 do
+      resources :cooking_recipes, path: "/cooking-recipes"
+
       post "sign-up" => "sign_up#create"
 
       post "auth" => "auth/sessions#create"

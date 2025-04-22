@@ -1,5 +1,6 @@
 class CookingRecipe < ApplicationRecord
   has_many :ingredients
+  has_many :foods, through: :ingredients
 
   validates :title, :description, :steps, presence: true
 
@@ -28,10 +29,11 @@ class CookingRecipe < ApplicationRecord
     attrs = [ :id, :title, :description, :steps ]
     options ||= {}
     if with_ingredients
+      relation = { ingredients: { only: [ :quantity ],  include: { food: { only: [ :id, :label ] } } } }
       if options.include? :include
-        options[:include] += :ingredients
+        options[:include] += relation
       else
-        options[:include] = :ingredients
+        options[:include] = relation
       end
     end
     if with_nutritional_values
