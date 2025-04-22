@@ -1,13 +1,25 @@
 class User < ApplicationRecord
   include Authenticatable
 
+  PROFILES = {
+    admin: "admin",
+    basic: "basic"
+  }.freeze
+
   validates :name, presence: true
   validates :activity_level, inclusion: { in: CalorieCalculator::ACTIVITY_LEVELS.keys.map(&:to_s) }, allow_blank: true
   validates :gender, inclusion: { in: CalorieCalculator::GENDERS.keys.map(&:to_s) }, allow_blank: true
   validates :height_in_centimeters, :weight_in_grams, numericality: { only_integer: true }, allow_blank: true
+  validates :profile, inclusion: { in: PROFILES.keys.map(&:to_s) }
+
+  attribute :profile, :string, default: PROFILES[:basic]
 
   def age
     AgeCalculator.new(birthdate).calculate
+  end
+
+  def is_admin?
+    profile == PROFILES[:admin]
   end
 
   def macro

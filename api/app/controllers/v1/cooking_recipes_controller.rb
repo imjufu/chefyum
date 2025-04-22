@@ -1,6 +1,7 @@
 class V1::CookingRecipesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[ index show ]
   before_action :set_cooking_recipe, only: %i[ show update destroy ]
+  authorize_resource
 
   # GET /cooking_recipes
   def index

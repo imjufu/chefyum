@@ -44,6 +44,9 @@ gem "nokogiri"
 # Pagination Ruby Gem
 gem "pagy"
 
+# Authorization library for Ruby and Ruby on Rails which restricts what resources a given user is allowed to access.
+gem "cancancan"
+
 group :development do
   gem "letter_opener"
 end
