@@ -2,7 +2,10 @@ class CookingRecipe < ApplicationRecord
   has_many :ingredients
   has_many :foods, through: :ingredients
 
-  validates :title, :description, :steps, presence: true
+  validates :title, :description, :steps, :slug, presence: true
+  validates :slug, uniqueness: true
+
+  before_validation :set_slug, only: [ :create, :update ]
 
   def nutritional_values
     return @nutritional_values if @nutritional_values
@@ -44,5 +47,11 @@ class CookingRecipe < ApplicationRecord
       end
     end
     super({ only: attrs }.merge(options || {}))
+  end
+
+  protected
+
+  def set_slug
+    self.slug ||= "#{title}-#{SecureRandom.urlsafe_base64}".parameterize unless title.blank?
   end
 end

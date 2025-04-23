@@ -9,6 +9,7 @@ class CreateUsers < ActiveRecord::Migration[7.2]
       t.integer :height_in_centimeters
       t.integer :weight_in_grams
       t.string :activity_level
+      t.string :profile, null: false, default: User::PROFILES[:basic]
 
       ## Trackable
       t.integer  :sign_in_count, default: 0, null: false

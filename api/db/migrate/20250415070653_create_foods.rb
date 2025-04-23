@@ -2,7 +2,7 @@ class CreateFoods < ActiveRecord::Migration[7.2]
   def change
     create_table :foods do |t|
       t.string :label
-      t.jsonb :nutrition_facts
+      t.jsonb :nutrition_facts, null: false
       t.string :source
       t.string :source_code
       t.string :source_label

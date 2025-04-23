@@ -10,21 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_22_131443) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_16_124701) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
   create_table "cooking_recipes", force: :cascade do |t|
-    t.string "title"
+    t.string "title", null: false
+    t.string "slug", null: false
     t.text "description"
-    t.jsonb "steps"
+    t.jsonb "steps", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_cooking_recipes_on_slug", unique: true
   end
 
   create_table "foods", force: :cascade do |t|
     t.string "label"
-    t.jsonb "nutrition_facts"
+    t.jsonb "nutrition_facts", null: false
     t.string "source"
     t.string "source_code"
     t.string "source_label"
@@ -36,7 +38,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_131443) do
   create_table "ingredients", primary_key: ["cooking_recipe_id", "food_id"], force: :cascade do |t|
     t.bigint "cooking_recipe_id", null: false
     t.bigint "food_id", null: false
-    t.decimal "quantity", precision: 5, scale: 1
+    t.decimal "quantity", precision: 5, scale: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cooking_recipe_id"], name: "index_ingredients_on_cooking_recipe_id"
@@ -52,6 +54,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_131443) do
     t.integer "height_in_centimeters"
     t.integer "weight_in_grams"
     t.string "activity_level"
+    t.string "profile", default: "basic", null: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -64,7 +67,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_22_131443) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "profile", default: "basic", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 end
