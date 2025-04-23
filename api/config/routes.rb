@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   scope :api do
     namespace :v1 do
-      resources :cooking_recipes, path: "/cooking-recipes"
+      resources :cooking_recipes, path: "/cooking-recipes", param: :slug
 
       post "sign-up" => "sign_up#create"
 

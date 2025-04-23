@@ -29,7 +29,7 @@ class CookingRecipe < ApplicationRecord
   end
 
   def as_json(options = nil, with_ingredients: false, with_nutritional_values: false)
-    attrs = [ :id, :title, :description, :steps ]
+    attrs = [ :id, :title, :slug, :description, :steps ]
     options ||= {}
     if with_ingredients
       relation = { ingredients: { only: [ :quantity ],  include: { food: { only: [ :id, :label ] } } } }
