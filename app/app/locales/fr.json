@@ -103,6 +103,21 @@
     "not_found": "Ce compte n'existe pas",
     "success": "Vous allez recevoir un email contenant les instructions de réinitialisation."
   },
+  "cooking_recipe": {
+    "steps": "Recette",
+    "ingredients": "Ingrédients pour :servings: personne(s)",
+    "nutritional_values": "Valeurs nutritionnelles",
+    "nutritional_values_description": "Valeurs estimées moyennes pour une portion",
+    "unit_grams": "g",
+    "energy_in_kcal_per_100g": "Energie (kcal/100g)",
+    "proteins_in_g_per_100g": "Protéines (g/100g)",
+    "carbohydrates_in_g_per_100g": "Glucides (g/100g)",
+    "lipids_in_g_per_100g": "Lipides (g/100g)",
+    "sugars_in_g_per_100g": "Sucres (g/100g)",
+    "saturated_fatty_acids_in_g_per_100g": "AG saturés (g/100g)",
+    "salt_in_g_per_100g": "Sel (g/100g)",
+    "fibers_in_g_per_100g": "Fibres alimentaires (g/100g)"
+  },
   "navbar": {
     "homepage": "Accueil",
     "pricing": "Tarifs",
@@ -110,6 +125,8 @@
     "profile": "Mon compte",
     "signin": "Se connecter",
     "signout": "Se déconnecter",
-    "welcome": "Bienvenue, :userName: !"
+    "welcome": "Bienvenue, :userName: !",
+    "cooking_recipes": "Liste des recettes"
   }
+
 }

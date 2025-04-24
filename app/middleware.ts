@@ -7,13 +7,13 @@ import { verifySession } from "@/app/lib/dal";
 const locales = ["fr"];
 const defaultLocale = "fr-FR";
 const publicRoutes = [
-  "",
-  "/signin",
-  "/signup",
-  "/reset-password",
-  "/change-password",
-  "/confirmation",
-  "/unlock",
+  /^\/signin$/,
+  /^\/signup$/,
+  /^\/reset-password$/,
+  /^\/change-password$/,
+  /^\/confirmation$/,
+  /^\/unlock$/,
+  /^\/cooking-recipes/,
 ];
 
 // Get the preferred locale, similar to the above or using a library
@@ -47,7 +47,20 @@ async function hasToBeAuthenticated(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const locale = await getLocale(request);
   const pathnameWithoutLocale = pathname.replace(`/${locale}`, "");
-  const isPublicRoute = publicRoutes.includes(pathnameWithoutLocale);
+
+  let isPublicRoute = false;
+  if (pathnameWithoutLocale) {
+    for (const publicRoute of publicRoutes) {
+      if (pathnameWithoutLocale.match(publicRoute)) {
+        isPublicRoute = true;
+        break;
+      }
+    }
+  } else {
+    // Root path is public!
+    isPublicRoute = true;
+  }
+
   const { isAuth } = await verifySession();
 
   return !isPublicRoute && !isAuth;

@@ -424,9 +424,9 @@ export default function Me({ me }: { me: Promise<User> }) {
     <div>
       <div className="px-4 sm:px-0 flex">
         <div className="grow-1">
-          <h3 className="text-base/7 font-semibold text-gray-900">
+          <h1 className="text-base/7 font-semibold text-gray-900">
             {t(dict, "my_account.title")}
-          </h3>
+          </h1>
           <p className="mt-1 max-w-2xl text-sm/6 text-gray-500">
             {t(dict, "my_account.description")}
           </p>

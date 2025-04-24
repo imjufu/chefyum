@@ -38,3 +38,30 @@ export type ApiResponse = {
 };
 
 export type AlertLevel = "success" | "error";
+
+export type CookingRecipe = {
+  id: number;
+  title: string;
+  description: string;
+  servings: number;
+  slug: string;
+  ingredients: Ingredient[];
+  steps: Step[];
+  nutritional_values_per_serving: { [key: string]: string };
+};
+
+export type Step = {
+  step: number;
+  instruction: string;
+};
+
+export type Ingredient = {
+  quantity: number;
+  unit: string;
+  food: Food;
+};
+
+export type Food = {
+  id: number;
+  label: string;
+};
