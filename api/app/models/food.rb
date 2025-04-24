@@ -3,6 +3,17 @@ class Food < ApplicationRecord
   validates :source_code, uniqueness: { scope: :source }
   validate :nutrition_facts_format
 
+  NUTRITIONAL_COMPOSITION = [
+    "energy_in_kcal_per_100g",
+    "proteins_in_g_per_100g",
+    "carbohydrates_in_g_per_100g",
+    "lipids_in_g_per_100g",
+    "sugars_in_g_per_100g",
+    "saturated_fatty_acids_in_g_per_100g",
+    "salt_in_g_per_100g",
+    "fibers_in_g_per_100g"
+  ]
+
   def label
     l = read_attribute(:label)
     l.blank? ? source_label : l
@@ -19,11 +30,7 @@ class Food < ApplicationRecord
       end
     )
     raise TypeError unless nf_json.is_a?(Hash)
-    # nutrition_facts is a hash with the following keys:
-    # :energy, :proteins, :carbohydrates, :lipids, :sugars,
-    # :saturated_fatty_acids, :salt and :fibers
-    required_keys = [ "energy", "proteins", "carbohydrates", "lipids", "sugars", "saturated_fatty_acids", "salt", "fibers" ]
-    errors.add(:nutrition_facts, "must have all the following keys: #{required_keys.join(', ')}") unless nf_json.keys.tally == required_keys.tally
+    errors.add(:nutrition_facts, "must have all the following keys: #{NUTRITIONAL_COMPOSITION.join(', ')}") unless nf_json.keys.tally == NUTRITIONAL_COMPOSITION.tally
   rescue JSON::ParserError, TypeError
     errors.add(:nutrition_facts, "is invalid")
   end

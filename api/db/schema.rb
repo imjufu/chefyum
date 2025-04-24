@@ -18,6 +18,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_124701) do
     t.string "title", null: false
     t.string "slug", null: false
     t.text "description"
+    t.integer "servings", null: false
     t.jsonb "steps", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,6 +40,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_16_124701) do
     t.bigint "cooking_recipe_id", null: false
     t.bigint "food_id", null: false
     t.decimal "quantity", precision: 5, scale: 1, null: false
+    t.string "unit", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cooking_recipe_id"], name: "index_ingredients_on_cooking_recipe_id"

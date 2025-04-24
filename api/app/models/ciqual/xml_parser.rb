@@ -4,15 +4,16 @@ module Ciqual
 
     SOURCE = "ciqual.anses"
 
+    # Map Ciqual nutrition fact codes with Food::NUTRITIONAL_COMPOSITION
     NUTRITION_FACTS_MAPPINGS = {
-      "328" => :energy,
-      "25003" => :proteins,
-      "31000" => :carbohydrates,
-      "40000" => :lipids,
-      "32000" => :sugars,
-      "40302" => :saturated_fatty_acids,
-      "10004" => :salt,
-      "34100" => :fibers
+      "328" => "energy_in_kcal_per_100g",
+      "25003" => "proteins_in_g_per_100g",
+      "31000" => "carbohydrates_in_g_per_100g",
+      "40000" => "lipids_in_g_per_100g",
+      "32000" => "sugars_in_g_per_100g",
+      "40302" => "saturated_fatty_acids_in_g_per_100g",
+      "10004" => "salt_in_g_per_100g",
+      "34100" => "fibers_in_g_per_100g"
     }
 
     def initialize(dirpath)

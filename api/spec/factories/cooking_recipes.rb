@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :cooking_recipe do
     title { Faker::Food.dish }
     description { Faker::Food.description }
+    servings { 1 }
     steps do
       [
         { step: 1, instruction: Faker::Lorem.sentence },

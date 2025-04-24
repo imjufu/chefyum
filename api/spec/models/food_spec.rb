@@ -17,7 +17,7 @@ RSpec.describe Food, type: :model do
 
       it "returns a error" do
         expect { food.valid? }.to change { food.errors.full_messages }.from([]).to([
-          "Nutrition facts must have all the following keys: energy, proteins, carbohydrates, lipids, sugars, saturated_fatty_acids, salt, fibers"
+          "Nutrition facts must have all the following keys: #{Food::NUTRITIONAL_COMPOSITION.join(', ')}"
         ])
       end
     end

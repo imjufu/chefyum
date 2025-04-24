@@ -4,6 +4,7 @@ class CreateIngredients < ActiveRecord::Migration[8.0]
       t.references :cooking_recipe, null: false
       t.references :food, null: false
       t.decimal :quantity, precision: 5, scale: 1, null: false
+      t.string :unit, null: false
 
       t.timestamps
     end

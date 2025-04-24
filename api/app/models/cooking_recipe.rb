@@ -4,35 +4,29 @@ class CookingRecipe < ApplicationRecord
 
   validates :title, :description, :steps, :slug, presence: true
   validates :slug, uniqueness: true
+  validates :servings, numericality: { only_integer: true }
 
   before_validation :set_slug, only: [ :create, :update ]
 
-  def nutritional_values
+  def nutritional_values_per_serving
     return @nutritional_values if @nutritional_values
 
-    @nutritional_values = {
-      energy: 0,
-      proteins: 0,
-      carbohydrates: 0,
-      lipids: 0,
-      sugars: 0,
-      saturated_fatty_acids: 0,
-      salt: 0,
-      fibers: 0
-    }
+    @nutritional_values = Food::NUTRITIONAL_COMPOSITION.map { |nc| [ nc, 0 ] }.to_h
     ingredients.each do |ingredient|
       @nutritional_values.keys.each do |k|
-        @nutritional_values[k] += ((ingredient.food.nutrition_facts[k.to_s] || 0) * ingredient.quantity / 100).round(2)
+        @nutritional_values[k] += (ingredient.food.nutrition_facts[k.to_s] || 0) * ingredient.quantity / 100
       end
     end
+    @nutritional_values.each { |nv| @nutritional_values[nv[0]] = (nv[1] / servings).round(2) }
+
     @nutritional_values
   end
 
   def as_json(options = nil, with_ingredients: false, with_nutritional_values: false)
-    attrs = [ :id, :title, :slug, :description, :steps ]
+    attrs = [ :id, :title, :slug, :servings, :description, :steps ]
     options ||= {}
     if with_ingredients
-      relation = { ingredients: { only: [ :quantity ],  include: { food: { only: [ :id, :label ] } } } }
+      relation = { ingredients: { only: [ :quantity, :unit ],  include: { food: { only: [ :id, :label ] } } } }
       if options.include? :include
         options[:include] += relation
       else
@@ -41,9 +35,9 @@ class CookingRecipe < ApplicationRecord
     end
     if with_nutritional_values
       if options.include? :methods
-        options[:methods] += :nutritional_values
+        options[:methods] += :nutritional_values_per_serving
       else
-        options[:methods] = :nutritional_values
+        options[:methods] = :nutritional_values_per_serving
       end
     end
     super({ only: attrs }.merge(options || {}))

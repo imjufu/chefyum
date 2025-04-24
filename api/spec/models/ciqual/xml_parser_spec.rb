@@ -21,14 +21,14 @@ RSpec.describe Ciqual::XmlParser do
           source_code: "1000",
           source_label: "Pastis",
           nutrition_facts: {
-            salt: 0.0,
-            energy: 274.0,
-            fibers: 0.0,
-            lipids: 0.0,
-            sugars: 0.0,
-            proteins: 0.0,
-            carbohydrates: 2.86,
-            saturated_fatty_acids: 0.0
+            "energy_in_kcal_per_100g" => 274.0,
+            "salt_in_g_per_100g" => 0.0,
+            "proteins_in_g_per_100g" => 0.0,
+            "carbohydrates_in_g_per_100g" => 2.86,
+            "sugars_in_g_per_100g" => 0.0,
+            "fibers_in_g_per_100g" => 0.0,
+            "lipids_in_g_per_100g" => 0.0,
+            "saturated_fatty_acids_in_g_per_100g" => 0.0
           }
         }
       ])

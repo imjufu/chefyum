@@ -26,6 +26,7 @@ if Rails.env.development?
   cooking_recipe = CookingRecipe.find_or_create_by(title: 'Pâtes au poulet')
   cooking_recipe.update(
     description: 'Simple, rapide, efficace !',
+    servings: 1,
     steps: [
       { step: 1, instruction: 'Faites cuire les pâtes' },
       { step: 2, instruction: 'Faites cuire le poulet' },
@@ -36,6 +37,6 @@ if Rails.env.development?
 
   chicken = Food.find_by(source: Ciqual::XmlParser::SOURCE, source_code: '36017')
   pasta = Food.find_by(source: Ciqual::XmlParser::SOURCE, source_code: '9870')
-  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_id: chicken.id, quantity: 100)
-  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_id: pasta.id, quantity: 80)
+  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_id: chicken.id, quantity: 100, unit: Ingredient::UNITS[:grams])
+  Ingredient.find_or_create_by(cooking_recipe_id: cooking_recipe.id, food_id: pasta.id, quantity: 80, unit: Ingredient::UNITS[:grams])
 end
