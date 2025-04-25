@@ -10,20 +10,13 @@ import {
   MenuItems,
   Button,
 } from "@headlessui/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-  ArrowLongRightIcon,
-} from "@heroicons/react/24/outline";
-import { useContext } from "react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PropsWithChildren, useContext } from "react";
 import { AuthContext, IntContext } from "@/app/lib/providers";
 import Link from "next/link";
 import { deleteSession } from "@/app/lib/session";
 import { t } from "@/app/lib/i18n";
-
-function inlineClassNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+import Image from "next/image";
 
 function userNavigationItem(
   item: { name: string; href?: string; onClick?: () => void },
@@ -46,19 +39,20 @@ function userNavigationItem(
   return content;
 }
 
-export default function Navbar() {
+export default function Alert({
+  className,
+}: PropsWithChildren<{ className?: string }>) {
+  const classNames = [className];
   const { currentSession, setCurrentSession } = useContext(AuthContext);
   const { dictionary: dict } = useContext(IntContext);
 
   const navigation = [
-    { name: t(dict, "navbar.homepage"), href: "/", current: true },
+    { name: t(dict, "navbar.home"), href: "/" },
     {
       name: t(dict, "navbar.cooking_recipes"),
       href: "/cooking-recipes",
-      current: false,
     },
-    { name: t(dict, "navbar.pricing"), href: "#", current: false },
-    { name: t(dict, "navbar.about"), href: "#", current: false },
+    { name: t(dict, "navbar.about"), href: "#" },
   ];
   const userNavigation = [
     { name: t(dict, "navbar.profile"), href: "/my-account" },
@@ -119,92 +113,85 @@ export default function Navbar() {
     );
   } else {
     profilePartContent = (
-      <Link href="/signin" className="text-gray-300">
-        {t(dict, "navbar.signin")}
-        <ArrowLongRightIcon aria-hidden="true" className="ml-2 inline size-6" />
+      <Link
+        href="/signin"
+        className="text-white bg-light-blue px-4 py-2 rounded-full"
+      >
+        {t(dict, "navbar.get_started")}
       </Link>
     );
     profilePartMobileContent = <div className="px-5">{profilePartContent}</div>;
   }
 
   return (
-    <>
-      <Disclosure as="nav" className="bg-gray-800">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center">
-              <div className="shrink-0">
-                <Link href="/" className="text-gray-300">
-                  Chef Yum
-                </Link>
-              </div>
-              <div className="hidden md:block">
-                <div className="ml-10 flex items-baseline space-x-4">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      aria-current={item.current ? "page" : undefined}
-                      className={inlineClassNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "rounded-md px-3 py-2 text-sm font-medium",
-                      )}
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-              </div>
+    <Disclosure as="nav" className={classNames.join(" ")}>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+          <div className="flex items-center">
+            <div className="shrink-0">
+              <Link href="/" className="text-white">
+                <Image
+                  src="/assets/logo-white.png"
+                  alt="Logo de Chef Yum"
+                  width="80"
+                  height="80"
+                />
+              </Link>
             </div>
             <div className="hidden md:block">
-              <div className="ml-4 flex items-center md:ml-6">
-                {profilePartContent}
+              <div className="ml-10 flex items-baseline space-x-4">
+                {navigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="text-white hover:bg-leaf-green-700 rounded-md px-3 py-2"
+                  >
+                    {item.name}
+                  </a>
+                ))}
               </div>
             </div>
-            <div className="-mr-2 flex md:hidden">
-              {/* Mobile menu button */}
-              <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
-                <span className="absolute -inset-0.5" />
-                <span className="sr-only">Open main menu</span>
-                <Bars3Icon
-                  aria-hidden="true"
-                  className="block size-6 group-data-open:hidden"
-                />
-                <XMarkIcon
-                  aria-hidden="true"
-                  className="hidden size-6 group-data-open:block"
-                />
-              </DisclosureButton>
+          </div>
+          <div className="hidden md:block">
+            <div className="ml-4 flex items-center md:ml-6">
+              {profilePartContent}
             </div>
           </div>
+          <div className="-mr-2 flex md:hidden">
+            {/* Mobile menu button */}
+            <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+              <span className="absolute -inset-0.5" />
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon
+                aria-hidden="true"
+                className="block size-6 group-data-open:hidden"
+              />
+              <XMarkIcon
+                aria-hidden="true"
+                className="hidden size-6 group-data-open:block"
+              />
+            </DisclosureButton>
+          </div>
         </div>
+      </div>
 
-        <DisclosurePanel className="md:hidden">
-          <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-            {navigation.map((item) => (
-              <Button
-                key={item.name}
-                as="a"
-                href={item.href}
-                aria-current={item.current ? "page" : undefined}
-                className={inlineClassNames(
-                  item.current
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                  "block rounded-md px-3 py-2 text-base font-medium",
-                )}
-              >
-                {item.name}
-              </Button>
-            ))}
-          </div>
-          <div className="border-t border-gray-700 pt-4 pb-3">
-            {profilePartMobileContent}
-          </div>
-        </DisclosurePanel>
-      </Disclosure>
-    </>
+      <DisclosurePanel className="md:hidden">
+        <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+          {navigation.map((item) => (
+            <Button
+              key={item.name}
+              as="a"
+              href={item.href}
+              className="text-white hover:bg-leaf-green-700 rounded-md px-3 py-2 text-xl font-medium"
+            >
+              {item.name}
+            </Button>
+          ))}
+        </div>
+        <div className="border-t border-gray-700 pt-4 pb-3">
+          {profilePartMobileContent}
+        </div>
+      </DisclosurePanel>
+    </Disclosure>
   );
 }

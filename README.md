@@ -1,12 +1,14 @@
 # ChefYum
 
-Chez ChefYum, on simplifie la vie des familles en les aidant à planifier des repas sains et adaptés à leurs contraintes alimentaires, semaine après semaine.
+Chez ChefYum, on simplifie la vie des gens en les aidant à planifier des repas sains et adaptés à leurs contraintes alimentaires, semaine après semaine.
 
 Allergies, intolérances, régimes végétariens ou simplement envie de mieux manger ? Notre plateforme propose des menus personnalisés, faciles à préparer, avec des recettes équilibrées, une liste de courses automatique et des conseils pratiques pour gagner du temps.
 
-Notre objectif : rendre l’alimentation saine accessible, simple et agréable pour toutes les familles, même les plus occupées.
+Notre objectif : rendre l’alimentation saine accessible, simple et agréable pour toutes les personnes, même les plus occupées.
 
 ChefYum, c’est le bon repas, pour les bonnes personnes, au bon moment.
+
+![Capture d'écran de la page d'accueil de l'application.](/preview.png)
 
 ## Environnement de développement
 
