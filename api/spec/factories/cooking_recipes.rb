@@ -10,6 +10,7 @@ FactoryBot.define do
         { step: 3, instruction: Faker::Lorem.sentence }
       ]
     end
+    tags { Faker::Lorem.words }
 
     transient do
       ingredients_count { 5 }

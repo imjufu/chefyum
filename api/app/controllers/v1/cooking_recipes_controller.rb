@@ -44,11 +44,11 @@ class V1::CookingRecipesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cooking_recipe
-    @cooking_recipe = CookingRecipe.find_by(slug: params.expect(:slug))
+    @cooking_recipe = CookingRecipe.find_by!(slug: params.expect(:slug))
   end
 
   # Only allow a list of trusted parameters through.
   def cooking_recipe_params
-    params.require(:cooking_recipe).permit(:title, :description, :servings, steps: [ [ :step, :instruction ] ])
+    params.require(:cooking_recipe).permit(:title, :description, :servings, tags: [], steps: [ [ :step, :instruction ] ])
   end
 end
