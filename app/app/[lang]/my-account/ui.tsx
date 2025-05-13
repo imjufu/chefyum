@@ -402,7 +402,7 @@ function Details({ dict, myAccount }: { dict: Dictionary; myAccount: User }) {
   );
 }
 
-export default function Me({ me }: { me: Promise<User> }) {
+export default function Ui({ me }: { me: Promise<User> }) {
   const myAccount = use(me);
   const { dictionary: dict } = useContext(IntContext);
   const searchParams = useSearchParams();

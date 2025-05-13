@@ -12,7 +12,7 @@ import {
   GlobeEuropeAfricaIcon,
 } from "@heroicons/react/24/outline";
 
-export default function Home() {
+export default function Page() {
   const { dictionary } = useContext(IntContext);
 
   return (

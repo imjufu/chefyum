@@ -9,7 +9,7 @@ import { Field, Label, Input } from "@headlessui/react";
 import Alert from "@/app/components/alert";
 import Link from "next/link";
 
-export function AuthRequestForm({ requestType }: { requestType: string }) {
+export default function Ui({ requestType }: { requestType: string }) {
   const [state, action, pending] = useActionState(authRequest, undefined);
 
   const { dictionary: dict } = useContext(IntContext);

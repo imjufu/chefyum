@@ -9,7 +9,7 @@ import Alert from "@/app/components/alert";
 import { redirect, useSearchParams } from "next/navigation";
 import { FlashMessageContext } from "@/app/lib/providers";
 
-export function ChangePasswordForm({ dict }: { dict: Dictionary }) {
+export default function Ui({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(changePassword, undefined);
 
   const searchParams = useSearchParams();

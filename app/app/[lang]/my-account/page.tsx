@@ -1,14 +1,14 @@
 import { Suspense } from "react";
 import { getMe } from "./actions";
-import Me from "./ui";
+import Ui from "./ui";
 import Loading from "@/app/components/loading";
 
-export default function MyAccount() {
+export default function Page() {
   const me = getMe();
 
   return (
     <Suspense fallback={<Loading />}>
-      <Me me={me}></Me>
+      <Ui me={me}></Ui>
     </Suspense>
   );
 }

@@ -10,7 +10,7 @@ import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
 import Alert from "@/app/components/alert";
 
-export function SigninForm({ dict }: { dict: Dictionary }) {
+export default function Ui({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signin, undefined);
 
   const [unlockedRedirectUrl, setUnlockedRedirectUrl] = useState<string>("");

@@ -1,4 +1,4 @@
-import { AuthRequestForm } from "./ui";
+import Ui from "./ui";
 
 export function generateStaticParams() {
   return [
@@ -8,11 +8,11 @@ export function generateStaticParams() {
   ];
 }
 
-export default async function Request({
+export default async function Page({
   params,
 }: {
   params: Promise<{ requestType: string }>;
 }) {
   const { requestType } = await params;
-  return <AuthRequestForm requestType={requestType}></AuthRequestForm>;
+  return <Ui requestType={requestType}></Ui>;
 }

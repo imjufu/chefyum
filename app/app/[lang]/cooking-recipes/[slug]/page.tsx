@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { getCookingRecipe } from "./actions";
-import CookingRecipe from "./ui";
+import Ui from "./ui";
 import Loading from "@/app/components/loading";
 import { use } from "react";
 
@@ -14,7 +14,7 @@ export default function Page({
 
   return (
     <Suspense fallback={<Loading />}>
-      <CookingRecipe cookingRecipe={cookingRecipe}></CookingRecipe>
+      <Ui cookingRecipe={cookingRecipe}></Ui>
     </Suspense>
   );
 }

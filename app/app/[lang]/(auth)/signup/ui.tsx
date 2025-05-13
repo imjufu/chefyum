@@ -8,7 +8,7 @@ import { Field, Label, Input } from "@headlessui/react";
 import Link from "next/link";
 import Alert from "@/app/components/alert";
 
-export function SignupForm({ dict }: { dict: Dictionary }) {
+export default function Ui({ dict }: { dict: Dictionary }) {
   const [state, action, pending] = useActionState(signup, undefined);
 
   const [redirectUrl, setRedirectUrl] = useState<string>("");
