@@ -39,7 +39,7 @@ function userNavigationItem(
   return content;
 }
 
-export default function Alert({
+export default function Navbar({
   className,
 }: PropsWithChildren<{ className?: string }>) {
   const classNames = [className];
@@ -125,7 +125,7 @@ export default function Alert({
 
   return (
     <Disclosure as="nav" className={classNames.join(" ")}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex h-20 items-center justify-between">
           <div className="flex items-center">
             <div className="shrink-0">

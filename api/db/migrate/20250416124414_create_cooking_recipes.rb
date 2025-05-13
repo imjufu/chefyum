@@ -6,6 +6,7 @@ class CreateCookingRecipes < ActiveRecord::Migration[8.0]
       t.text :description
       t.integer :servings, null: false
       t.jsonb :steps, null: false
+      t.jsonb :tags, null: false
 
       t.timestamps
     end

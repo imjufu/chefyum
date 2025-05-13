@@ -85,7 +85,6 @@ export function SignupForm({ dict }: { dict: Dictionary }) {
             defaultValue={state?.data?.email}
             type="email"
             tabIndex={2}
-            autoFocus
             className={state?.errors?.email && "error"}
           />
           {state?.errors?.email && (

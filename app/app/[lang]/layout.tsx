@@ -32,17 +32,23 @@ export default async function RootLayout({
   return (
     <html lang={lang} className="h-full">
       <body className="h-full antialiased">
-        <div className="min-h-full">
-          <AppContextProvider
-            session={session}
-            dictionary={dictionary}
-            flashMessage={flashMessage}
-          >
-            <Navbar className={`bg-leaf-green text-xl ${chewy.className}`} />
-            <main className="min-h-[90vh] text-neutral-800">{children}</main>
-            <Footer />
-            <FlashMessage />
-          </AppContextProvider>
+        <div className="min-h-full py-3 mx-auto max-w-7xl">
+          <div className="bg-white rounded-lg p-3">
+            <AppContextProvider
+              session={session}
+              dictionary={dictionary}
+              flashMessage={flashMessage}
+            >
+              <Navbar
+                className={`bg-leaf-green text-xl mb-3 rounded-lg ${chewy.className}`}
+              />
+              <main className="min-h-[90vh] text-neutral-800">{children}</main>
+              <Footer
+                className={`bg-black rounded-lg mt-3 text-white rounded-lg`}
+              />
+              <FlashMessage />
+            </AppContextProvider>
+          </div>
         </div>
       </body>
     </html>
