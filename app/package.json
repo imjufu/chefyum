@@ -10,27 +10,27 @@
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
-    "@headlessui/react": "^2.2.2",
+    "@headlessui/react": "^2.2.3",
     "@heroicons/react": "^2.2.0",
     "negotiator": "^1.0.0",
     "next": "15.3.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "zod": "^3.24.3"
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@tailwindcss/postcss": "^4.1.4",
+    "@tailwindcss/postcss": "^4.1.6",
     "@types/negotiator": "^0.6.3",
-    "@types/node": "^20.17.30",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "eslint": "^9.25.1",
+    "@types/node": "^20.17.46",
+    "@types/react": "^19.1.4",
+    "@types/react-dom": "^19.1.5",
+    "eslint": "^9.26.0",
     "eslint-config-next": "15.3.1",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.4.0",
     "prettier": "3.5.3",
-    "sass": "^1.87.0",
+    "sass": "^1.88.0",
     "tailwindcss": "^4",
     "typescript": "^5.8.3"
   }
