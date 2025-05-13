@@ -14,6 +14,6 @@ class V1::MeController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :gender, :birthdate, :height_in_centimeters, :weight_in_kilograms, :activity_level)
+    params.require(:user).permit(:name, :email, :password, :gender, :birthdate, :height_in_centimeters, :weight_in_grams, :activity_level)
   end
 end
