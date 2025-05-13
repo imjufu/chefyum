@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-power-orange">
+      <div className="bg-power-orange rounded-lg mb-3">
         <div className="flex gap-x-20 items-center content">
           <div>
             <div className="mb-8">

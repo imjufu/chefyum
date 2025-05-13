@@ -43,6 +43,7 @@ export type CookingRecipe = {
   id: number;
   title: string;
   description: string;
+  photo_url?: string;
   servings: number;
   slug: string;
   ingredients: Ingredient[];

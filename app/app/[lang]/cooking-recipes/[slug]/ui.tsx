@@ -24,24 +24,22 @@ export default function Ui({
   ));
 
   const steps = loadedCookingRecipe.steps.map((step, idx) => (
-    <li key={idx}>
-      <span className="font-semibold">{step.step}</span>&nbsp;{step.instruction}
-    </li>
+    <li key={idx}>{step.instruction}</li>
   ));
 
   const nutritionalValues = Object.keys(
     loadedCookingRecipe.nutritional_values_per_serving,
   ).map((nv, idx) => (
-    <li key={idx}>
-      <span className="text-sm">{t(dict, `cooking_recipe.${nv}`)}</span>&nbsp;
-      <span className="font-semibold">
+    <div key={idx} className="flex justify-between">
+      <dt className="text-sm">{t(dict, `cooking_recipe.${nv}`)}</dt>
+      <dd className="font-semibold">
         {loadedCookingRecipe.nutritional_values_per_serving[nv]}
-      </span>
-    </li>
+      </dd>
+    </div>
   ));
 
   return (
-    <div>
+    <div className="content">
       <h1 className="text-2xl font-semibold text-gray-900">
         {loadedCookingRecipe.title}
       </h1>
@@ -73,7 +71,7 @@ export default function Ui({
               </h3>
             </dt>
             <dd>
-              <ul>{steps}</ul>
+              <ol className="list-decimal ml-5">{steps}</ol>
             </dd>
           </div>
         </dl>
@@ -90,7 +88,7 @@ export default function Ui({
               </h4>
             </dt>
             <dd>
-              <ul>{nutritionalValues}</ul>
+              <dl className="w-1/5">{nutritionalValues}</dl>
             </dd>
           </div>
         </dl>

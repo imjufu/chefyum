@@ -1,10 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { PropsWithChildren } from "react";
 
-export default function Footer() {
+export default function Footer({
+  className,
+}: PropsWithChildren<{ className?: string }>) {
+  const classNames = [className];
   return (
-    <div className="bg-black text-white mt-10">
+    <div className={classNames.join(" ")}>
       <div className="content flex items-start justify-between">
         <div className="flex items-center">
           <Image
