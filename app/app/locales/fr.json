@@ -106,7 +106,7 @@
   },
   "cooking_recipe": {
     "steps": "Recette",
-    "ingredients": "Ingrédients pour :servings: personne(s)",
+    "ingredients": "Ingrédients pour :servings: portion(s)",
     "nutritional_values": "Valeurs nutritionnelles",
     "nutritional_values_description": "Valeurs estimées moyennes pour une portion",
     "unit_grams": "g",
