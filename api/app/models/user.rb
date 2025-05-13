@@ -44,9 +44,9 @@ class User < ApplicationRecord
     if with_macro_data && macro
       options ||= {}
       if options.include? :methods
-        options[:methods] += :macro
+        options[:methods] << :macro
       else
-        options[:methods] = :macro
+        options[:methods] = [ :macro ]
       end
     end
     super({ only: attrs }.merge(options || {}))
