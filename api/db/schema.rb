@@ -80,11 +80,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_12_134856) do
     t.string "name", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
-    t.string "gender"
-    t.date "birthdate"
-    t.integer "height_in_centimeters"
-    t.integer "weight_in_grams"
-    t.string "activity_level"
+    t.jsonb "macro_related_data", null: false
     t.string "profile", default: "basic", null: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
